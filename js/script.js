@@ -267,7 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
             prevButton.disabled = state.currentPage === 1;
             prevButton.addEventListener('click', () => {
               if (state.currentPage > 1) {
-                state.currentPage--;
+                // state.currentPage--;
+                state.currentPage = 1;
                 updateProjectsVisibility();
               }
             });
@@ -494,7 +495,7 @@ const initMobileMenu = () => {
         initLazyLoading();
         handleModal();
         initSmoothScroll();
-        initDarkMode();
+        // initDarkMode();
         initMobileMenu();
     };
 

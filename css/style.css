@@ -797,6 +797,12 @@ body.dark-theme {
   color: var(--light) !important ;
 }
 
+.dark-theme .contact-content input,
+.dark-theme .contact-content textarea {
+  color: var(--dark-text) !important;
+  /* border-color: var(--accent1) !important; */
+}
+
 /* ===== Dark mode toggle ====== */
 .switch {
   position: relative;
