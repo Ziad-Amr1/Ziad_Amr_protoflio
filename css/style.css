@@ -26,6 +26,7 @@ body {
   font-family: "Poppins", sans-serif;
   scrollbar-width: thin;
   scrollbar-color: var(--accent1) var(--light);
+  overflow-x: hidden;
 }
 
 .card {
