@@ -1,12 +1,13 @@
+// script.js - الإصدار النهائي المُحسّن
 document.addEventListener('DOMContentLoaded', () => {
-    // ------ التهيئة العامة ------
+    // تهيئة عامة
     const state = {
         currentPage: 1,
         projectsPerPage: 6,
         totalProjects: document.querySelectorAll('.project-card').length
     };
 
-    // ------ العناصر الرئيسية ------
+    // العناصر الرئيسية
     const DOM = {
         typingText: document.querySelector(".change"),
         cursor: document.querySelector(".cursor"),
@@ -21,118 +22,119 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // ------ بيانات المشاريع (لا تغيير) ------
-    const PROJECTS_DATA = {         1: {
-        title: "Modern Villa Design",
-        image: "images/Projects/Arc_1.jpg",
-        description: "Complete architectural design for a luxury villa including 3D modeling, interior design, and landscape planning.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Case Study", url: "#"}
-        ]
-    },
-    2: {
-        title: "Hu Tao Poster",
-        image: "images/Projects/hu tao poster4.jpg",
-        description: "A vibrant and eye-catching poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "photoshop file", url: "#"}
-        ]
-    },
-    3: {
-        title: "Hu Tao Poster",
-        image: "images/Projects/hu_tao.jpg",
-        description: "A vibrant and eye-catching poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    4: {
-        title: "Anime Cover",
-        image: "images/Projects/pink cover.png",
-        description: "A stunning and eye-catching cover design for an anime series.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    5: {
-        title: "Jean Poster",
-        image: "images/Projects/jean poster.png",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    6: {
-        title: "Deku Quote Poster",
-        image: "images/Projects/DEKU.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    7: {
-        title: "Healthy Food Poster",
-        image: "images/Projects/heal1.jpg",
-        description: "Healthy Food Poster",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    8: {
-        title: "azin Poster",
-        image: "images/Projects/azin copy.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    9: {
-        title: "Bank Vector",
-        image: "images/Projects/BANK-01.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    10: {
-        title: "Moon Night Vector",
-        image: "images/Projects/Moon night.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    11: {
-        title: "Front Elevation",
-        image: "images/Projects/Arc_2.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    12: {
-        title: "Arc_1",
-        image: "images/Projects/Arc_1.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
- };
+    // بيانات المشاريع
+    const PROJECTS_DATA = {
+        1: {
+            title: "Modern Villa Design",
+            image: "images/Projects/Arc_1.jpg",
+            description: "Complete architectural design for a luxury villa including 3D modeling, interior design, and landscape planning.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Case Study", url: "#"}
+            ]
+        },
+        2: {
+            title: "Hu Tao Poster",
+            image: "images/Projects/hu tao poster4.jpg",
+            description: "A vibrant and eye-catching poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "photoshop file", url: "#"}
+            ]
+        },
+        3: {
+            title: "Hu Tao Poster",
+            image: "images/Projects/hu_tao.jpg",
+            description: "A vibrant and eye-catching poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        4: {
+            title: "Anime Cover",
+            image: "images/Projects/pink cover.png",
+            description: "A stunning and eye-catching cover design for an anime series.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        5: {
+            title: "Jean Poster",
+            image: "images/Projects/jean poster.png",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        6: {
+            title: "Deku Quote Poster",
+            image: "images/Projects/DEKU.jpg",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        7: {
+            title: "Healthy Food Poster",
+            image: "images/Projects/heal1.jpg",
+            description: "Healthy Food Poster",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        8: {
+            title: "azin Poster",
+            image: "images/Projects/azin copy.jpg",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        9: {
+            title: "Bank Vector",
+            image: "images/Projects/BANK-01.jpg",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        10: {
+            title: "Moon Night Vector",
+            image: "images/Projects/Moon night.jpg",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        11: {
+            title: "Front Elevation",
+            image: "images/Projects/Arc_2.jpg",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+        12: {
+            title: "Arc_1",
+            image: "images/Projects/Arc_1.jpg",
+            description: "A modern and elegant poster design for a luxury brand.",
+            links: [
+                {text: "View Prototype", url: "#"},
+                {text: "Photoshop File", url: "#"}
+            ]
+        },
+    };
 
-    // ------ تهيئة المكتبات ------
+    // تهيئة المكتبات
     const initAOS = () => {
         AOS.init({
             once: true,
@@ -141,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // ------ تأثير الكتابة ------
+    // تأثير الكتابة
     const initTypingEffect = () => {
         const texts = ["Architect", "Graphic Designer", "Front-end Developer"];
         let count = 0, index = 0, isDeleting = false;
@@ -173,7 +175,30 @@ document.addEventListener('DOMContentLoaded', () => {
         type();
     };
 
-    // ------ نظام المهارات ------
+    // نظام المهارات
+    const SKILLS_DATA = {
+        architecture: [
+            {name: 'AutoCAD', img: 'images/skills/cad-file.png'},
+            {name: 'Revit', img: 'images/skills/revit.png'},
+            {name: 'SketchUp', img: 'images/skills/skp.png'},
+            {name: 'Lumion', img: 'images/skills/lumion.webp'},
+        ],
+        design: [
+            {name: 'Photoshop', img: 'images/skills/photoshop.png'},
+            {name: 'Illustrator', img: 'images/skills/illustrator.png'},
+            {name: 'InDesign', img: 'images/skills/indesign.png'},
+            {name: 'Premiere Pro', img: 'images/skills/premiere-pro.png'},
+            {name: 'Figma', img: 'images/skills/figma.webp'},
+            {name: 'Canva', img: 'images/skills/canva.webp'},
+        ],
+        development: [
+            {name: 'HTML', img: 'images/skills/html.webp'}, 
+            {name: 'CSS', img: 'images/skills/css.webp'},
+            {name: 'JavaScript', img: 'images/skills/js.webp'},
+            {name: 'Node.js', img: 'images/skills/nodejs.webp'},
+        ]
+    };
+
     const handleSkills = () => {
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -200,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSkillsGrid('architecture');
     };
 
-    // ------ نظام المشاريع والترقيم ------
+    // نظام الترشيح والترقيم
     const handleProjects = () => {
         const projects = document.querySelectorAll('.project-card');
         
@@ -302,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProjectsVisibility();
     };
 
-    // ------ التحميل المتأخر ------
+    // نظام التحميل المتأخر
     const initLazyLoading = () => {
         const lazyLoadObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
@@ -325,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
-    // ------ نظام المودال ------
+    // نظام المودال
     const handleModal = () => {
         document.querySelectorAll('.project-view').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -384,8 +409,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 `).join('');
         };
-
-    // ------ التمرير السلس ------
+    
+    // تحسين التمرير السلس مع مراعاة الهيدر الثابت
     const initSmoothScroll = () => {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function(e) {
@@ -402,57 +427,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
-    // ------ الوضع الداكن ------
-    const toggle = document.getElementById('themeToggle');
-    if (toggle) {
-        toggle.addEventListener('change', () => {
-            document.body.classList.toggle('dark-theme');
-            const slider = document.querySelector('.slider');
-            toggle.checked ? slider.classList.add('night-mode') : slider.classList.remove('night-mode');
-            localStorage.setItem('theme', toggle.checked ? 'dark' : 'light');
-        });
+// دالة تبديل الوضع الداكن
+// استبدال دالة initDarkMode بالكود المُحدّث
+// تبديل الوضع الداكن
+const toggle = document.getElementById('themeToggle');
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            toggle.checked = true;
-            document.querySelector('.slider').classList.add('night-mode');
-        }
-    }
+toggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark-theme');
+  
+  // إضافة تأثيرات إضافية
+  const slider = document.querySelector('.slider');
+  if (toggle.checked) {
+    slider.classList.add('night-mode');
+  } else {
+    slider.classList.remove('night-mode');
+  }
+  
+  localStorage.setItem('theme', toggle.checked ? 'dark' : 'light');
+});
 
-    // ------ نظام القائمة الجانبية (الحل النهائي) ------
-    const initMobileMenu = () => {
-        const toggleMenu = document.querySelector('.menu-toggle');
-        const sidebarNav = document.querySelector('.sidebar-nav');
+// التحميل الأولي
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  document.body.classList.add('dark-theme');
+  toggle.checked = true;
+  document.querySelector('.slider').classList.add('night-mode');
+}
 
-        if (!toggleMenu || !sidebarNav) return;
+// menu toggle
+// const initMobileMenu = () => {
+//     const menuToggle = document.querySelector('.menu-toggle');
+//     const sidebarNav = document.querySelector('.sidebar-nav');
+    
+//     menuToggle.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         sidebarNav.classList.toggle('active');
+//         menuToggle.classList.toggle('active');
+//         const icon = menuToggle.querySelector('i');
+//         icon.classList.toggle('fa-bars');
+//         icon.classList.toggle('fa-times');
+//     });
+  
+//     document.addEventListener('click', (e) => {
+//         if (!sidebarNav.contains(e.target) && !menuToggle.contains(e.target)) {
+//             sidebarNav.classList.remove('active');
+//             menuToggle.classList.remove('active');
+//             const icon = menuToggle.querySelector('i');
+//             icon.classList.remove('fa-times');
+//             icon.classList.add('fa-bars');
+//         }
+//     });
+  
+//     document.querySelectorAll('.sidebar-nav a').forEach(link => {
+//         link.addEventListener('click', () => {
+//             sidebarNav.classList.remove('active');
+//             menuToggle.classList.remove('active');
+//             menuToggle.querySelector('i').classList.remove('fa-times');
+//             menuToggle.querySelector('i').classList.add('fa-bars');
+//         });
+//     });
+//   };
 
-        // فتح/إغلاق القائمة
-        const toggleMenuHandler = (e) => {
-            e.stopPropagation();
-            toggleMenu.classList.toggle('active');
-            sidebarNav.classList.toggle('active');
-            const icon = toggleMenu.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        };
-
-        // إغلاق القائمة
-        const closeMenu = () => {
-            toggleMenu.classList.remove('active');
-            sidebarNav.classList.remove('active');
-            const icon = toggleMenu.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        };
-
-        // الأحداث
-        toggleMenu.addEventListener('click', toggleMenuHandler);
-        document.addEventListener('click', (e) => {
-            if (!sidebarNav.contains(e.target) && !toggleMenu.contains(e.target)) closeMenu();
-        });
-        document.querySelectorAll('.sidebar-nav a').forEach(link => link.addEventListener('click', closeMenu));
-    };
+// document.addEventListener('DOMContentLoaded', () => {
+//     const toggleMenu = document.querySelector('.menu-toggle');
+//     const sidebarNav = document.querySelector('.sidebar-nav');
+  
+//     // فتح/إغلاق القائمة
+//     toggleMenu.addEventListener('click', (e) => {
+//       e.stopPropagation();
+//       toggleMenu.classList.toggle('active');
+//       sidebarNav.classList.toggle('active');
+//     });
+  
+//     // إغلاق القائمة عند النقر خارجها
+//     document.addEventListener('click', (e) => {
+//       if (!sidebarNav.contains(e.target) && !toggleMenu.contains(e.target)) {
+//         sidebarNav.classList.remove('active');
+//         toggleMenu.classList.remove('active');
+//       }
+//     });
+  
+//     // إغلاق القائمة عند النقر على رابط
+//     document.querySelectorAll('.sidebar-nav a').forEach(link => {
+//       link.addEventListener('click', () => {
+//         sidebarNav.classList.remove('active');
+//         toggleMenu.classList.remove('active');
+//       });
+//     });
+//   });
 
     const toggleMenu = document.querySelector('.menu-toggle')
     const sidebarNav = document.querySelector('.sidebar-nav')
@@ -462,7 +524,8 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleMenu.classList.toggle('active');
     });
 
-    // ------ تهيئة جميع المكونات ------
+
+    // تهيئة جميع المكونات
     const init = () => {
         initAOS();
         initTypingEffect();
@@ -471,9 +534,10 @@ document.addEventListener('DOMContentLoaded', () => {
         initLazyLoading();
         handleModal();
         initSmoothScroll();
+        // initDarkMode();
         initMobileMenu();
     };
 
-    // ------ بدء التشغيل ------
+    // بدء التشغيل
     init();
 });
