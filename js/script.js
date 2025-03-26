@@ -266,8 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
             prevButton.disabled = state.currentPage === 1;
             prevButton.addEventListener('click', () => {
               if (state.currentPage > 1) {
-                // state.currentPage--;
-                state.currentPage = 1;
+                state.currentPage--;
+                // state.currentPage = 1;
                 updateProjectsVisibility();
               }
             });
@@ -502,6 +502,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // toggleMenu.querySelector('i').classList.remove('fa-times');
         });
     });
+
+    window.addEventListener('scroll', () => {
+        sidebarNav.classList.remove('active');
+        toggleMenu.classList.remove('active');
+      });
 
     // ------ تهيئة جميع المكونات ------
     const init = () => {
