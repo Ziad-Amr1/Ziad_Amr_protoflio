@@ -174,6 +174,30 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ------ نظام المهارات ------
+        // نظام المهارات
+        const SKILLS_DATA = {
+            architecture: [
+                {name: 'AutoCAD', img: 'images/skills/cad-file.png'},
+                {name: 'Revit', img: 'images/skills/revit.png'},
+                {name: 'SketchUp', img: 'images/skills/skp.png'},
+                {name: 'Lumion', img: 'images/skills/lumion.webp'},
+            ],
+            design: [
+                {name: 'Photoshop', img: 'images/skills/photoshop.png'},
+                {name: 'Illustrator', img: 'images/skills/illustrator.png'},
+                {name: 'InDesign', img: 'images/skills/indesign.png'},
+                {name: 'Premiere Pro', img: 'images/skills/premiere-pro.png'},
+                {name: 'Figma', img: 'images/skills/figma.webp'},
+                {name: 'Canva', img: 'images/skills/canva.webp'},
+            ],
+            development: [
+                {name: 'HTML', img: 'images/skills/html.webp'}, 
+                {name: 'CSS', img: 'images/skills/css.webp'},
+                {name: 'JavaScript', img: 'images/skills/js.webp'},
+                {name: 'Node.js', img: 'images/skills/nodejs.webp'},
+            ]
+        };
+
     const handleSkills = () => {
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -421,45 +445,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ------ نظام القائمة الجانبية (الحل النهائي) ------
-    const initMobileMenu = () => {
-        const toggleMenu = document.querySelector('.menu-toggle');
-        const sidebarNav = document.querySelector('.sidebar-nav');
+    // const initMobileMenu = () => {
+    //     const toggleMenu = document.querySelector('.menu-toggle');
+    //     const sidebarNav = document.querySelector('.sidebar-nav');
 
-        if (!toggleMenu || !sidebarNav) return;
+    //     if (!toggleMenu || !sidebarNav) return;
 
-        // فتح/إغلاق القائمة
-        const toggleMenuHandler = (e) => {
-            e.stopPropagation();
-            toggleMenu.classList.toggle('active');
-            sidebarNav.classList.toggle('active');
-            const icon = toggleMenu.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        };
+    //     // فتح/إغلاق القائمة
+    //     const toggleMenuHandler = (e) => {
+    //         e.stopPropagation();
+    //         toggleMenu.classList.toggle('active');
+    //         sidebarNav.classList.toggle('active');
+    //         const icon = toggleMenu.querySelector('i');
+    //         icon.classList.toggle('fa-bars');
+    //         icon.classList.toggle('fa-times');
+    //     };
 
-        // إغلاق القائمة
-        const closeMenu = () => {
-            toggleMenu.classList.remove('active');
-            sidebarNav.classList.remove('active');
-            const icon = toggleMenu.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        };
+    //     // إغلاق القائمة
+    //     const closeMenu = () => {
+    //         toggleMenu.classList.remove('active');
+    //         sidebarNav.classList.remove('active');
+    //         const icon = toggleMenu.querySelector('i');
+    //         icon.classList.remove('fa-times');
+    //         icon.classList.add('fa-bars');
+    //     };
 
-        // الأحداث
-        toggleMenu.addEventListener('click', toggleMenuHandler);
-        document.addEventListener('click', (e) => {
-            if (!sidebarNav.contains(e.target) && !toggleMenu.contains(e.target)) closeMenu();
-        });
-        document.querySelectorAll('.sidebar-nav a').forEach(link => link.addEventListener('click', closeMenu));
-    };
+    //     // الأحداث
+    //     toggleMenu.addEventListener('click', toggleMenuHandler);
+    //     document.addEventListener('click', (e) => {
+    //         if (!sidebarNav.contains(e.target) && !toggleMenu.contains(e.target)) closeMenu();
+    //     });
+    //     document.querySelectorAll('.sidebar-nav a').forEach(link => link.addEventListener('click', closeMenu));
+    // };
 
+    // Menu mainal
     const toggleMenu = document.querySelector('.menu-toggle')
     const sidebarNav = document.querySelector('.sidebar-nav')
 
     toggleMenu.addEventListener('click', () => {
       sidebarNav.classList.toggle('active');
       toggleMenu.classList.toggle('active');
+    }); 
+
+    document.addEventListener('click', (event) => {
+        if (!sidebarNav.contains(event.target) && 
+            !toggleMenu.contains(event.target)) {
+            sidebarNav.classList.remove('active');
+            toggleMenu.classList.remove('active');
+        }
+    });
+
+    sidebarNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            sidebarNav.classList.remove('active');
+            toggleMenu.classList.remove('active');
+            // toggleMenu.querySelector('i').classList.remove('fa-times');
+        });
     });
 
     // ------ تهيئة جميع المكونات ------
