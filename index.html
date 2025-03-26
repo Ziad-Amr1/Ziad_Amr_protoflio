@@ -3,32 +3,28 @@
 <head>
     <!-- Meta updates -->
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Ziad Amr - Architectural Designer & Front-End Developer specializing in creative digital solutions and user-centered design">
     <meta name="keywords" content="Architecture, Web Design, UI/UX, Front-End Development">
+    
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Ziad Amr | Portfolio">
     <meta property="og:image" content="images/social-preview.jpg">
 
     <title>Ziad Amr | Portfolio</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
-    <link rel="preconnect" href="https://unpkg.com">
-<!-- Before -->
-<link rel="preload" href="fonts/poppins.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="images/logo.webp" type="image/webp">
 
-<!-- After -->
-<link rel="preload" href="fonts/poppins.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preload" href="fonts/poppins.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
     <!-- add -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/all.css">
-    <!-- scripts -->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-    <!-- <script src="js/test.js"></script> -->
 </head>
 <body>
     
@@ -44,7 +40,9 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-    <label class="switch">
+
+      <!-- Dark Mode Toggle -->
+      <label class="switch">
         <input id="themeToggle" type="checkbox">
         <div class="slider">
             <div class="sun-moon">
@@ -111,6 +109,7 @@
         </div>
       </label>
 
+      <!-- Mobile Menu -->
       <button class="menu-toggle" aria-label="Toggle navigation menu">
         <i class="fas fa-bars"></i>
       </button>
@@ -213,10 +212,10 @@
                   
                   <!-- Filters -->
                   <div class="project-filters">
-                      <button class="filter-btn btn active" data-filter="all">All</button>
-                      <button class="filter-btn btn" data-filter="architecture">Architecture</button>
-                      <button class="filter-btn btn" data-filter="design">Design</button>
-                      <button class="filter-btn btn" data-filter="development">Development</button>
+                    <button class="filter-btn btn active" data-filter="all">All</button>
+                    <button class="filter-btn btn" data-filter="architecture">Architecture</button>
+                    <button class="filter-btn btn" data-filter="design">Design</button>
+                    <button class="filter-btn btn" data-filter="development">Development</button>
                   </div>
 
                   <!-- Projects Grid -->
@@ -583,7 +582,39 @@
                         </div>
                       </div>
 
+                      <!-- ===== Project Item 12 ===== -->
+                      <div class="project-card architecture" data-category="architecture"
+                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
 
+                      <!-- Image Container -->
+                      <div class="project-image">
+                      <!-- Lazy-loaded Image -->
+                      <img src="images/placeholder.webp"
+                          data-src="images/Projects/Arc_3.jpg"
+                          alt="Front Elevation"
+                          class="lazy-load"
+                          loading="lazy"
+                          width="800"
+                          height="600">
+
+                      <!-- Hover Overlay Content -->
+                      <div class="project-overlay">
+                          <h3>Front Elevation</h3>
+
+                          <!-- Tags List -->
+                          <div class="project-tags">
+                            <span>3D Modeling</span>
+                            <span>Exterior Design</span>
+                            <span>AutoCAD</span>
+                          </div>
+
+                            <!-- Action Button -->
+                            <button class="project-view hover-lift" data-project="12">
+                              View Details
+                            </button>
+                         </div>
+                        </div>
+                      </div>
 
                     <!-- end of projects -->
                   </div>
@@ -651,8 +682,9 @@
                 </div>
             </footer>
         </main>
-
-
-
+    <!-- scripts -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

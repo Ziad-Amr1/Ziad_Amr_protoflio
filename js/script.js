@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ------ التهيئة العامة ------
+    // ------ State ------
     const state = {
         currentPage: 1,
         projectsPerPage: 6,
         totalProjects: document.querySelectorAll('.project-card').length
     };
 
-    // ------ العناصر الرئيسية ------
+    // ------ DOM Elements ------
     const DOM = {
         typingText: document.querySelector(".change"),
         cursor: document.querySelector(".cursor"),
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // ------ بيانات المشاريع (لا تغيير) ------
+    // ------  Projects Data ------
     const PROJECTS_DATA = {         1: {
         title: "Modern Villa Design",
         image: "images/Projects/Arc_1.jpg",
@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     },
     12: {
-        title: "Arc_1",
-        image: "images/Projects/Arc_1.jpg",
+        title: "Arc_3",
+        image: "images/Projects/Arc_3.jpg",
         description: "A modern and elegant poster design for a luxury brand.",
         links: [
             {text: "View Prototype", url: "#"},
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
  };
 
-    // ------ تهيئة المكتبات ------
+    // ------ AOS Init ------
     const initAOS = () => {
         AOS.init({
             once: true,
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // ------ تأثير الكتابة ------
+    // ------  Typing Effect ------
     const initTypingEffect = () => {
         const texts = ["Architect", "Graphic Designer", "Front-end Developer"];
         let count = 0, index = 0, isDeleting = false;
@@ -173,8 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
         type();
     };
 
-    // ------ نظام المهارات ------
-        // نظام المهارات
+    // ------   Skills System ------
+        // Skills Data
         const SKILLS_DATA = {
             architecture: [
                 {name: 'AutoCAD', img: 'images/skills/cad-file.png'},
@@ -224,115 +224,99 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSkillsGrid('architecture');
     };
 
-    // ------ نظام المشاريع والترقيم ------
+    // ------  Projects System ------
     const handleProjects = () => {
-        const projects = document.querySelectorAll('.project-card');
-        
-        // الترشيح
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        let filteredProjects = [];
+        const allProjects = Array.from(document.querySelectorAll('.project-card'));
+        const container = document.querySelector('#projects .container');
+        const filters = document.querySelectorAll('.filter-btn');
+    
+        // Apply Filter
+        const applyFilter = (filter) => {
+            filteredProjects = allProjects.filter(project => 
+                filter === 'all' || project.dataset.category === filter
+            );
+            allProjects.forEach(p => p.style.display = 'none');
+            state.totalProjects = filteredProjects.length;
+            state.currentPage = 1;
+            updateProjectsVisibility();
+        };
+    
+        // Filter Buttons Event
+        filters.forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                filters.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                
-                projects.forEach(project => {
-                    project.style.display = 
-                        (filter === 'all' || project.dataset.category === filter) 
-                            ? 'block' 
-                            : 'none';
-                });
+                applyFilter(btn.dataset.filter);
             });
         });
-
-        // الترقيم
-        // تحسين نظام الترقيم
-        const setupPagination = () => {
-            const container = document.querySelector('#projects .container');
-            const pageCount = Math.ceil(state.totalProjects / state.projectsPerPage);
-            const paginationContainer = container.querySelector('.pagination-pages') || document.createElement('div');
-            
-            // تنظيف المحتوى الحالي
-            container.querySelectorAll('.pagination').forEach(n => n.remove());
-            
-            // إنشاء العناصر الجديدة
-            const paginationNav = document.createElement('nav');
-            paginationNav.className = 'pagination';
-            paginationNav.setAttribute('aria-label', 'Project pagination');
-          
-            // أزرار السابق والتالي
-            const prevButton = document.createElement('button');
-            prevButton.className = 'pagination-btn prev';
-            prevButton.textContent = '« Prev';
-            prevButton.disabled = state.currentPage === 1;
-            prevButton.addEventListener('click', () => {
-              if (state.currentPage > 1) {
-                state.currentPage--;
-                // state.currentPage = 1;
-                updateProjectsVisibility();
-              }
-            });
-          
-            const nextButton = document.createElement('button');
-            nextButton.className = 'pagination-btn next';
-            nextButton.textContent = 'Next »';
-            nextButton.disabled = state.currentPage === pageCount;
-            nextButton.addEventListener('click', () => {
-              if (state.currentPage < pageCount) {
-                state.currentPage++;
-                updateProjectsVisibility();
-              }
-            });
-          
-            // أزرار الصفحات
-            paginationContainer.className = 'pagination-pages';
-            paginationContainer.innerHTML = '';
-            
-            const startPage = Math.max(1, state.currentPage - 2);
-            const endPage = Math.min(pageCount, state.currentPage + 2);
-            
-            for (let i = startPage; i <= endPage; i++) {
-              const pageBtn = document.createElement('button');
-              pageBtn.className = `page-item ${i === state.currentPage ? 'active' : ''}`;
-              pageBtn.textContent = i;
-              pageBtn.addEventListener('click', () => {
-                state.currentPage = i;
-                updateProjectsVisibility();
-              });
-              paginationContainer.appendChild(pageBtn);
-            }
-          
-            // تجميع العناصر
-            paginationNav.appendChild(prevButton);
-            paginationNav.appendChild(paginationContainer);
-            paginationNav.appendChild(nextButton);
-            container.appendChild(paginationNav);
-          };
-
+    
+        // Update Projects Visibility
         const updateProjectsVisibility = () => {
             const start = (state.currentPage - 1) * state.projectsPerPage;
             const end = start + state.projectsPerPage;
-
-            projects.forEach((project, index) => {
-                project.style.display = (index >= start && index < end) ? 'block' : 'none';
-                project.classList.toggle('visible', (index >= start && index < end));
+    
+            filteredProjects.forEach(p => p.style.display = 'none');
+            filteredProjects.slice(start, end).forEach(project => {
+                project.style.display = 'block';
+                project.classList.add('visible');
             });
-
-            document.querySelectorAll('.page-item').forEach(item => {
-                item.classList.toggle('active', item.textContent == state.currentPage);
+    
+            setupPagination();
+        };
+    
+        //  Pagination System
+        const setupPagination = () => {
+            const pagination = container.querySelector('.pagination');
+            if (!pagination) return;
+    
+            const pagesContainer = pagination.querySelector('.pagination-pages');
+            pagesContainer.innerHTML = '';
+            const pageCount = Math.ceil(filteredProjects.length / state.projectsPerPage);
+    
+            for (let i = 1; i <= pageCount; i++) {
+                const btn = document.createElement('button');
+                btn.className = `page-item ${i === state.currentPage ? 'active' : ''}`;
+                btn.textContent = i;
+                btn.addEventListener('click', () => {
+                    state.currentPage = i;
+                    updateProjectsVisibility();
+                });
+                pagesContainer.appendChild(btn);
+            }
+    
+            //  Update Prev and Next Buttons
+            const prevBtn = pagination.querySelector('.prev');
+            const nextBtn = pagination.querySelector('.next');
+            prevBtn.disabled = state.currentPage === 1;
+            nextBtn.disabled = state.currentPage === pageCount;
+    
+            prevBtn.addEventListener('click', () => {
+                if (state.currentPage > 1) {
+                    state.currentPage--;
+                    updateProjectsVisibility();
+                }
+            });
+    
+            nextBtn.addEventListener('click', () => {
+                if (state.currentPage < pageCount) {
+                    state.currentPage++;
+                    updateProjectsVisibility();
+                }
             });
         };
-
-        setupPagination();
-        updateProjectsVisibility();
+    
+        //  Initial Filter
+        applyFilter('all');
     };
-
-    // ------ التحميل المتأخر ------
+    
+    // ------  Lazy Loading ------
     const initLazyLoading = () => {
         const lazyLoadObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const img = entry.target;
-              // استبدال البيانات فقط إذا كانت موجودة
+              // Replace Data Only If Exists
               if (img.dataset.src) img.src = img.dataset.src;
               if (img.dataset.srcset) img.srcset = img.dataset.srcset;
               img.classList.remove('lazy-load');
@@ -341,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
         }, { 
-          rootMargin: '200px 0px 200px 0px' // زيادة الهوامش العلوية والسفلية
+          rootMargin: '200px 0px 200px 0px' // Increase thresholds
         });
       
         document.querySelectorAll('.lazy-load').forEach(img => {
@@ -349,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
-    // ------ نظام المودال ------
+    // ------   Modal System ------
     const handleModal = () => {
         document.querySelectorAll('.project-view').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -365,18 +349,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'auto';
         });
 
-        // تحسين نظام المودال (إزالة التكرار)
         const loadProjectData = (id) => {
             const project = PROJECTS_DATA[id];
             if (!project) return;
 
-            // إنشاء صورة والتحقق من وجودها
+            // Create Image and Check if Exists
             const img = new Image();
             img.src = project.image;
             img.onload = () => DOM.modal.image.src = project.image;
             img.onerror = () => DOM.modal.image.src = 'images/fallback.jpg';
 
-            // تحديث محتوى المودال
+            // Update Modal Content
             DOM.modal.title.textContent = project.title;
             DOM.modal.description.textContent = project.description;
             DOM.modal.links.innerHTML = project.links.map(link => `
@@ -386,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         };
 
-            // إضافة تحقق من وجود الصورة
+            // Add Check for Image
             const img = new Image();
             img.src = project.image;
             img.onerror = () => {
@@ -409,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `).join('');
         };
 
-    // ------ التمرير السلس ------
+    // ------   Scroll Smooth ------
     const initSmoothScroll = () => {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function(e) {
@@ -426,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
-    // ------ الوضع الداكن ------
+    // ------   Dark Mode ------
     const toggle = document.getElementById('themeToggle');
     if (toggle) {
         toggle.addEventListener('change', () => {
@@ -444,14 +427,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ------ نظام القائمة الجانبية (الحل النهائي) ------
+    // ------   Mobile Menu ------
     // const initMobileMenu = () => {
     //     const toggleMenu = document.querySelector('.menu-toggle');
     //     const sidebarNav = document.querySelector('.sidebar-nav');
 
     //     if (!toggleMenu || !sidebarNav) return;
 
-    //     // فتح/إغلاق القائمة
+    //     // Open/Close Menu
     //     const toggleMenuHandler = (e) => {
     //         e.stopPropagation();
     //         toggleMenu.classList.toggle('active');
@@ -461,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //         icon.classList.toggle('fa-times');
     //     };
 
-    //     // إغلاق القائمة
+    //     //  Close Menu
     //     const closeMenu = () => {
     //         toggleMenu.classList.remove('active');
     //         sidebarNav.classList.remove('active');
@@ -470,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //         icon.classList.add('fa-bars');
     //     };
 
-    //     // الأحداث
+    //     //  Event
     //     toggleMenu.addEventListener('click', toggleMenuHandler);
     //     document.addEventListener('click', (e) => {
     //         if (!sidebarNav.contains(e.target) && !toggleMenu.contains(e.target)) closeMenu();
@@ -478,7 +461,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //     document.querySelectorAll('.sidebar-nav a').forEach(link => link.addEventListener('click', closeMenu));
     // };
 
-    // Menu mainal
+    // Menu Manual
+   
     const toggleMenu = document.querySelector('.menu-toggle')
     const sidebarNav = document.querySelector('.sidebar-nav')
 
@@ -508,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleMenu.classList.remove('active');
       });
 
-    // ------ تهيئة جميع المكونات ------
+    // ------   Init ------
     const init = () => {
         initAOS();
         initTypingEffect();
@@ -520,6 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initMobileMenu();
     };
 
-    // ------ بدء التشغيل ------
+    // ------ Start ------
     init();
 });
