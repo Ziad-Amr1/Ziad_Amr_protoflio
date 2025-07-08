@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
         totalProjects: document.querySelectorAll('.project-card').length
     };
 
+    // calculate current page from hash
+    function getCurrentPageFromHash() {
+    const hash = window.location.hash;
+    const match = hash.match(/#page=(\d+)/);
+    return match ? parseInt(match[1]) : 1;
+    };
+
     // ------ DOM Elements ------
     const DOM = {
         typingText: document.querySelector(".change"),
@@ -13,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         skillsGrid: document.querySelector('.skills-grid'),
         modal: {
             element: document.querySelector('.project-modal'),
+            content: document.querySelector('.modal-content'),
             image: document.querySelector('.modal-image'),
             title: document.querySelector('.modal-title'),
             description: document.querySelector('.modal-description'),
@@ -22,117 +30,36 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ------  Projects Data ------
-    const PROJECTS_DATA = {         1: {
-        title: "Modern Villa Design",
-        image: "images/Projects/Arc_1.jpg",
-        description: "Complete architectural design for a luxury villa including 3D modeling, interior design, and landscape planning.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Case Study", url: "#"}
-        ]
-    },
-    2: {
-        title: "Hu Tao Poster",
-        image: "images/Projects/hu tao poster4.jpg",
-        description: "A vibrant and eye-catching poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "photoshop file", url: "#"}
-        ]
-    },
-    3: {
-        title: "Hu Tao Poster",
-        image: "images/Projects/hu_tao.jpg",
-        description: "A vibrant and eye-catching poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    4: {
-        title: "Anime Cover",
-        image: "images/Projects/pink cover.png",
-        description: "A stunning and eye-catching cover design for an anime series.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    5: {
-        title: "Jean Poster",
-        image: "images/Projects/jean poster.png",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    6: {
-        title: "Deku Quote Poster",
-        image: "images/Projects/DEKU.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    7: {
-        title: "Healthy Food Poster",
-        image: "images/Projects/heal1.jpg",
-        description: "Healthy Food Poster",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    8: {
-        title: "azin Poster",
-        image: "images/Projects/azin copy.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    9: {
-        title: "Bank Vector",
-        image: "images/Projects/BANK-01.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    10: {
-        title: "Moon Night Vector",
-        image: "images/Projects/Moon night.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    11: {
-        title: "Front Elevation",
-        image: "images/Projects/Arc_2.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
-    12: {
-        title: "Arc_3",
-        image: "images/Projects/Arc_3.jpg",
-        description: "A modern and elegant poster design for a luxury brand.",
-        links: [
-            {text: "View Prototype", url: "#"},
-            {text: "Photoshop File", url: "#"}
-        ]
-    },
- };
+    let PROJECTS_DATA = {};
 
-    // ------ AOS Init ------
+    // تحميل بيانات المشاريع من ملف JSON
+    async function loadProjectsData() {
+    try {
+        const response = await fetch('../json/projects.json');
+        if (!response.ok) throw new Error('فشل تحميل الملف');
+        const data = await response.json();
+        
+        // التأكد من أن البيانات صحيحة
+        if (!data.projects || !Array.isArray(data.projects)) {
+        throw new Error('هيكل البيانات غير صحيح');
+        }
+
+        // تحويل المصفوفة إلى كائن لسهولة الوصول
+        PROJECTS_DATA = data.projects.reduce((acc, project) => {
+        if (!project.id) throw new Error(`المشروع بدون ID: ${project.title}`);
+        acc[project.id] = project;
+        return acc;
+        }, {});
+        
+        console.log('✅ PROJECTS_DATA:', PROJECTS_DATA); // تأكيد التحميل
+        return PROJECTS_DATA;
+    } catch (error) {
+        console.error('❌ خطأ في تحميل المشاريع:', error);
+        alert('تعذر تحميل المشاريع. يرجى التحقق من الملف أو الاتصال بالإنترنت.');
+    }
+    } 
+
+    // ================= AOS Init =================
     const initAOS = () => {
         AOS.init({
             once: true,
@@ -143,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ------  Typing Effect ------
     const initTypingEffect = () => {
-        const texts = ["Architect", "Graphic Designer", "Front-end Developer"];
+        const texts = ["Architect", "Graphic Designer", "Front-End Developer"];
         let count = 0, index = 0, isDeleting = false;
 
         const type = () => {
@@ -177,16 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Skills Data
         const SKILLS_DATA = {
             architecture: [
-                {name: 'AutoCAD', img: 'images/skills/cad-file.png'},
-                {name: 'Revit', img: 'images/skills/revit.png'},
-                {name: 'SketchUp', img: 'images/skills/skp.png'},
+                {name: 'AutoCAD', img: 'images/skills/cad-file.webp'},
+                {name: 'Revit', img: 'images/skills/revit.webp'},
+                {name: 'SketchUp', img: 'images/skills/skp.webp'},
                 {name: 'Lumion', img: 'images/skills/lumion.webp'},
             ],
             design: [
-                {name: 'Photoshop', img: 'images/skills/photoshop.png'},
-                {name: 'Illustrator', img: 'images/skills/illustrator.png'},
-                {name: 'InDesign', img: 'images/skills/indesign.png'},
-                {name: 'Premiere Pro', img: 'images/skills/premiere-pro.png'},
+                {name: 'Photoshop', img: 'images/skills/photoshop.webp'},
+                {name: 'Illustrator', img: 'images/skills/illustrator.webp'},
+                {name: 'InDesign', img: 'images/skills/indesign.webp'},
+                {name: 'Dimension', img: 'images/skills/Dn.webp'},
+                {name: 'Premiere Pro', img: 'images/skills/premiere-pro.webp'},
                 {name: 'Figma', img: 'images/skills/figma.webp'},
                 {name: 'Canva', img: 'images/skills/canva.webp'},
             ],
@@ -195,6 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 {name: 'CSS', img: 'images/skills/css.webp'},
                 {name: 'JavaScript', img: 'images/skills/js.webp'},
                 {name: 'Node.js', img: 'images/skills/nodejs.webp'},
+                {name: 'React', img: 'images/skills/React.webp'},
+                {name: 'python', img: 'images/skills/python.webp'},
+                {name: 'Git', img: 'images/skills/git.webp'},
+                {name: 'GitHub', img: 'images/skills/github.webp'},
+                {name: 'bootstrap', img: 'images/skills/bootstrap.webp'},
+                {name: 'VS Code', img: 'images/skills/vscode.webp'},
             ]
         };
 
@@ -224,173 +158,224 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSkillsGrid('architecture');
     };
 
+    // 
+        // تحديث المشاريع المعروضة حسب الصفحة الحالية
+    const updateProjectsVisibility = (projects) => {
+    const start = (state.currentPage - 1) * state.projectsPerPage;
+    const end = start + state.projectsPerPage;
+
+    // إخفاء الجميع أولًا
+    projects.forEach(p => p.style.display = 'none');
+
+    // عرض المشاريع في الصفحة الحالية
+    projects.slice(start, end).forEach(p => p.style.display = 'block');
+
+    // ✅ إعادة إنشاء الترقيم دائمًا
+    window.location.hash = `#page=${state.currentPage}`;
+    setupPagination(projects);
+    };
+
+    // إعداد أزرار الترقيم
+    const setupPagination = (projects) => {
+    const pagesContainer = document.querySelector('.pagination-pages');
+    if (!pagesContainer) return;
+    pagesContainer.innerHTML = ''; // إعادة تعيين الأرقام دائمًا
+
+    const pageCount = Math.ceil(projects.length / state.projectsPerPage);
+
+    // إضافة أزرار الصفحات
+    for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement('button');
+        btn.className = `page-item ${i === state.currentPage ? 'active' : ''}`;
+        btn.textContent = i;
+        btn.addEventListener('click', () => {
+        state.currentPage = i;
+        updateProjectsVisibility(projects);
+        });
+        pagesContainer.appendChild(btn);
+    }
+
+    // تحديث حالة زري التالي والسابق
+    const prevBtn = document.querySelector('.pagination .prev');
+    const nextBtn = document.querySelector('.pagination .next');
+
+    if (prevBtn && nextBtn) {
+        prevBtn.disabled = state.currentPage === 1;
+        nextBtn.disabled = state.currentPage === pageCount;
+    }
+    };
+
+
     // ------  Projects System ------
     const handleProjects = () => {
-        let filteredProjects = [];
-        const allProjects = Array.from(document.querySelectorAll('.project-card'));
-        const container = document.querySelector('#projects .container');
-        const filters = document.querySelectorAll('.filter-btn');
-    
-        // Apply Filter
-        const applyFilter = (filter) => {
-            filteredProjects = allProjects.filter(project => 
-                filter === 'all' || project.dataset.category === filter
-            );
-            allProjects.forEach(p => p.style.display = 'none');
-            state.totalProjects = filteredProjects.length;
-            state.currentPage = 1;
-            updateProjectsVisibility();
-        };
-    
-        // Filter Buttons Event
-        filters.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filters.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                applyFilter(btn.dataset.filter);
-            });
+    // الحصول على جميع المشاريع وأزرار الفلاتر
+    const allProjects = Array.from(document.querySelectorAll('.project-card'));
+    const filters = document.querySelectorAll('.filter-btn');
+    let filteredProjects = [];
+
+    // تطبيق الفلتر
+    const applyFilter = (filter) => {
+        // تصفية المشاريع حسب الفئة
+        filteredProjects = allProjects.filter(p => filter === 'all' || p.dataset.category === filter);
+        
+        // إخفاء جميع المشاريع أولًا
+        allProjects.forEach(p => p.style.display = 'none');
+        
+        // إعادة تعيين الصفحة الحالية إلى 1
+        state.currentPage = getCurrentPageFromHash();
+        
+        // تحديث عرض المشاريع
+        updateProjectsVisibility(filteredProjects);
+    };
+
+    // تفعيل الفلتر عند النقر على الأزرار
+    filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.filter);
         });
-    
-        // Update Projects Visibility
-        const updateProjectsVisibility = () => {
-            const start = (state.currentPage - 1) * state.projectsPerPage;
-            const end = start + state.projectsPerPage;
-    
-            filteredProjects.forEach(p => p.style.display = 'none');
-            filteredProjects.slice(start, end).forEach(project => {
-                project.style.display = 'block';
-                project.classList.add('visible');
-            });
-    
-            setupPagination();
-        };
-    
-        //  Pagination System
-        const setupPagination = () => {
-            const pagination = container.querySelector('.pagination');
-            if (!pagination) return;
-    
-            const pagesContainer = pagination.querySelector('.pagination-pages');
-            pagesContainer.innerHTML = '';
-            const pageCount = Math.ceil(filteredProjects.length / state.projectsPerPage);
-    
-            for (let i = 1; i <= pageCount; i++) {
-                const btn = document.createElement('button');
-                btn.className = `page-item ${i === state.currentPage ? 'active' : ''}`;
-                btn.textContent = i;
-                btn.addEventListener('click', () => {
-                    state.currentPage = i;
-                    updateProjectsVisibility();
-                });
-                pagesContainer.appendChild(btn);
-            }
-    
-            //  Update Prev and Next Buttons
-            const prevBtn = pagination.querySelector('.prev');
-            const nextBtn = pagination.querySelector('.next');
-            prevBtn.disabled = state.currentPage === 1;
-            nextBtn.disabled = state.currentPage === pageCount;
-    
-            prevBtn.addEventListener('click', () => {
-                if (state.currentPage > 1) {
-                    state.currentPage--;
-                    updateProjectsVisibility();
-                }
-            });
-    
-            nextBtn.addEventListener('click', () => {
-                if (state.currentPage < pageCount) {
-                    state.currentPage++;
-                    updateProjectsVisibility();
-                }
-            });
-        };
-    
-        //  Initial Filter
-        applyFilter('all');
+    });
+
+    // تفعيل الفلتر الافتراضي
+    applyFilter('all');
     };
     
     // ------  Lazy Loading ------
     const initLazyLoading = () => {
-        const lazyLoadObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              // Replace Data Only If Exists
-              if (img.dataset.src) img.src = img.dataset.src;
-              if (img.dataset.srcset) img.srcset = img.dataset.srcset;
-              img.classList.remove('lazy-load');
-              img.classList.add('loaded');
-              lazyLoadObserver.unobserve(img);
-            }
-          });
-        }, { 
-          rootMargin: '200px 0px 200px 0px' // Increase thresholds
+    const lazyLoadObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) img.src = img.dataset.src;
+            if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+            
+            // إضافة تأثير تلاشي عند التحميل
+            img.onload = () => {
+            img.classList.remove('lazy-load');
+            img.classList.add('loaded');
+            };
+            
+            lazyLoadObserver.unobserve(img);
+        }
         });
-      
-        document.querySelectorAll('.lazy-load').forEach(img => {
-          lazyLoadObserver.observe(img);
-        });
-      };
+    }, { rootMargin: '0px 0px 200px 0px' });
+
+    document.querySelectorAll('.lazy-load').forEach(img => {
+        lazyLoadObserver.observe(img);
+    });
+    };
+
+// Zoom عند النقر (اختياري)
+DOM.modal.image.addEventListener('click', () => {
+  DOM.modal.image.classList.toggle('zoomed');
+});
 
     // ------   Modal System ------
-    const handleModal = () => {
-        document.querySelectorAll('.project-view').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const projectId = e.target.dataset.project;
-                loadProjectData(projectId);
-                DOM.modal.element.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            });
-        });
+const handleModal = () => {
+    let modalProjectOrder = [];
+    let currentModalIndex = 0;
 
-        DOM.modal.close.addEventListener('click', () => {
+    // ===== تحميل بيانات المشروع =====
+    const loadProjectData = (id) => {
+        const project = PROJECTS_DATA[id];
+        if (!project) return;
+
+        // تحديث البيانات داخل المودال
+        DOM.modal.title.textContent = project.title;
+        DOM.modal.description.textContent = project.description;
+
+        const aspectRatio = project.aspect_ratio || 'auto';
+        const img = new Image();
+        img.src = project.image;
+
+        img.onload = () => {
+            DOM.modal.image.src = img.src;
+
+            if (aspectRatio === 'landscape' || (img.width > img.height && aspectRatio === 'auto')) {
+                DOM.modal.content.classList.add('modal-landscape');
+                DOM.modal.content.classList.remove('modal-portrait');
+            } else {
+                DOM.modal.content.classList.add('modal-portrait');
+                DOM.modal.content.classList.remove('modal-landscape');
+            }
+        };
+
+        img.onerror = () => {
+            DOM.modal.image.src = 'images/fallback.jpg';
+            DOM.modal.content.classList.add('modal-landscape');
+            DOM.modal.content.classList.remove('modal-portrait');
+        };
+
+        // تحديث الروابط
+        DOM.modal.links.innerHTML = project.links.map(link => `
+            <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="modal-link">
+                ${link.text}
+            </a>
+        `).join('');
+
+        // تعطيل أزرار التنقل حسب الموضع
+        document.querySelector('.modal-prev').disabled = currentModalIndex === 0;
+        document.querySelector('.modal-next').disabled = currentModalIndex === modalProjectOrder.length - 1;
+    };
+
+    // ===== فتح المودال عند الضغط على المشروع =====
+    document.querySelectorAll('.project-view').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const projectId = e.target.dataset.project;
+
+            // تحديث ترتيب المشاريع المعروضة حاليًا
+            modalProjectOrder = Array.from(document.querySelectorAll('.project-card'))
+                .filter(p => p.style.display !== 'none')
+                .map(p => p.querySelector('.project-view').dataset.project);
+
+            currentModalIndex = modalProjectOrder.indexOf(projectId);
+
+            loadProjectData(projectId);
+            DOM.modal.element.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // ===== زر الإغلاق × =====
+    DOM.modal.close.addEventListener('click', () => {
+        DOM.modal.element.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    // ===== إغلاق عند الضغط خارج المودال =====
+    DOM.modal.element.addEventListener('click', (e) => {
+        if (e.target === DOM.modal.element) {
             DOM.modal.element.style.display = 'none';
             document.body.style.overflow = 'auto';
-        });
+        }
+    });
 
-        const loadProjectData = (id) => {
-            const project = PROJECTS_DATA[id];
-            if (!project) return;
+    // ===== إغلاق عند الضغط على Escape =====
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            DOM.modal.element.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
 
-            // Create Image and Check if Exists
-            const img = new Image();
-            img.src = project.image;
-            img.onload = () => DOM.modal.image.src = project.image;
-            img.onerror = () => DOM.modal.image.src = 'images/fallback.jpg';
+    // ===== التنقل للمشروع السابق =====
+    document.querySelector('.modal-prev').addEventListener('click', () => {
+        if (currentModalIndex > 0) {
+            currentModalIndex--;
+            loadProjectData(modalProjectOrder[currentModalIndex]);
+        }
+    });
 
-            // Update Modal Content
-            DOM.modal.title.textContent = project.title;
-            DOM.modal.description.textContent = project.description;
-            DOM.modal.links.innerHTML = project.links.map(link => `
-                <a href="${link.url}" target="_blank" rel="noopener" class="modal-link">
-                    ${link.text}
-                </a>
-            `).join('');
-        };
+    // ===== التنقل للمشروع التالي =====
+    document.querySelector('.modal-next').addEventListener('click', () => {
+        if (currentModalIndex < modalProjectOrder.length - 1) {
+            currentModalIndex++;
+            loadProjectData(modalProjectOrder[currentModalIndex]);
+        }
+    });
+};
 
-            // Add Check for Image
-            const img = new Image();
-            img.src = project.image;
-            img.onerror = () => {
-                DOM.modal.image.src = 'images/fallback-image.jpg';
-            };
-            img.onload = () => {
-                DOM.modal.image.src = project.image;
-            };
-
-            DOM.modal.title.textContent = project.title;
-            DOM.modal.description.textContent = project.description;
-            DOM.modal.links.innerHTML = project.links
-                .map(link => `
-                    <a href="${link.url}" 
-                    target="_blank" 
-                    rel="noopener" 
-                    class="modal-link">
-                    ${link.text}
-                    </a>
-                `).join('');
-        };
 
     // ------   Scroll Smooth ------
     const initSmoothScroll = () => {
@@ -492,18 +477,129 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleMenu.classList.remove('active');
       });
 
-    // ------   Init ------
-    const init = () => {
-        initAOS();
-        initTypingEffect();
-        handleSkills();
-        handleProjects();
-        initLazyLoading();
-        handleModal();
-        initSmoothScroll();
-        initMobileMenu();
+    //   reder projects data
+    function renderProjects() {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) {
+        console.error('❌ عنصر #projects-grid غير موجود في الصفحة');
+        return;
+    }
+
+    // مسح المحتوى القديم
+    grid.innerHTML = '';
+
+    // التأكد من أن PROJECTS_DATA ليست فارغة
+    if (!PROJECTS_DATA || Object.keys(PROJECTS_DATA).length === 0) {
+        grid.innerHTML = '<p>لا توجد مشاريع لعرضها</p>';
+        return;
+    }
+
+    // تحويل الكائن إلى مصفوفة وعرض المشاريع
+    Object.values(PROJECTS_DATA).forEach(project => {
+        const card = document.createElement('div');
+        card.className = `project-card ${project.category || 'unknown'}`;
+        card.setAttribute('data-category', project.category || 'unknown');
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-duration', '800');
+        card.setAttribute('data-aos-delay', '100');
+
+        card.innerHTML = `
+        <div class="project-image">
+            <img src="images/placeholder.webp"
+                data-src="${project.image}"
+                alt="${project.title}"
+                class="lazy-load"
+                loading="lazy"
+                width="800"
+                height="600">
+            <div class="project-overlay">
+            <h3 class="project-title">${project.title}</h3>
+            <div class="project-tags">
+                ${project.tags?.map(tag => `<span>${tag}</span>`).join('') || ''}
+            </div>
+            <button class="project-view hover-lift" data-project="${project.id}">
+                see details
+            </button>
+            </div>
+        </div>
+        `;
+
+        grid.appendChild(card);
+    });
+
+    // إعادة تهيئة الفلاتر والـ pagination
+    handleProjects();
+    initLazyLoading();
+    handleModal();
     };
 
-    // ------ Start ------
+    // init pagination
+    const initPagination = () => {
+    const prevBtn = document.querySelector('.pagination .prev');
+    const nextBtn = document.querySelector('.pagination .next');
+
+    window.addEventListener("hashchange", () => {
+        const page = getCurrentPageFromHash();
+        const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+        const currentProjects = Array.from(document.querySelectorAll('.project-card')).filter(p =>
+            currentFilter === 'all' || p.dataset.category === currentFilter
+        );
+        state.currentPage = page;
+        updateProjectsVisibility(currentProjects);
+    });
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+            const currentProjects = Array.from(document.querySelectorAll('.project-card')).filter(p =>
+                currentFilter === 'all' || p.dataset.category === currentFilter
+            );
+
+            if (state.currentPage > 1) {
+                state.currentPage--;
+                updateProjectsVisibility(currentProjects);
+            }
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+            const currentProjects = Array.from(document.querySelectorAll('.project-card')).filter(p =>
+                currentFilter === 'all' || p.dataset.category === currentFilter
+            );
+            const pageCount = Math.ceil(currentProjects.length / state.projectsPerPage);
+
+            if (state.currentPage < pageCount) {
+                state.currentPage++;
+                updateProjectsVisibility(currentProjects);
+            }
+        });
+    }
+    };
+
+
+        
+    // ================= init =================
+    const init = async () => {
+    await loadProjectsData();
+    console.log('📊 PROJECTS_DATA بعد التحميل:', PROJECTS_DATA);
+    initAOS();
+    initTypingEffect();
+    handleSkills();
+    handleProjects();
+    getCurrentPageFromHash();
+    initLazyLoading();
+    handleModal();
+    initSmoothScroll();
+    // initMobileMenu();
+    renderProjects();
+    initPagination();
+
+    console.log('📦 PROJECTS_DATA:', PROJECTS_DATA);
+    console.log('📄 عدد المشاريع:', Object.keys(PROJECTS_DATA).length);
+    };
+
+    // ================= start =================
     init();
 });

@@ -7,7 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Ziad Amr - Architectural Designer & Front-End Developer specializing in creative digital solutions and user-centered design">
     <meta name="keywords" content="Architecture, Web Design, UI/UX, Front-End Development">
-    
+    <meta name="theme-color" content="#0077cc">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ziad Amr - Portfolio">
+    <meta property="og:description" content="Ziad Amr's portfolio showcasing architectural designs, graphic artworks, and front-end development projects.">
+    <meta property="og:image" content="images/seo-preview.jpg">
+    <meta property="og:url" content="https://ziad-amr-portfolio.netlify.app/ ">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ziad Amr - Portfolio">
+    <meta name="twitter:description" content="Ziad Amr's portfolio showcasing architectural designs, graphic artworks, and front-end development projects.">
+    <meta name="twitter:image" content="images/seo-preview.jpg">
+    <meta name="twitter:site" content="@ziad_amr">
+    <!-- <meta name="description" content="Ziad Amr's portfolio showcasing architectural designs, graphic artworks, and front-end development projects."> -->
+
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Ziad Amr | Portfolio">
     <meta property="og:image" content="images/social-preview.jpg">
@@ -17,7 +33,8 @@
 
 
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preload" href="fonts/poppins.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <!-- <link rel="preload" href="fonts/poppins.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <!-- add -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -191,7 +208,7 @@
               </section>
     
             <!-- Skills Section -->
-            <section id="skills" class="section">
+            <section id="skills" class="section" role="list" aria-label="Technical Skills">
                 <div class="container">
                   <h2 class="section-title">Technical Skills</h2>
                     <div class="skills-tabs">
@@ -206,7 +223,7 @@
             </section>
     
            <!-- Projects Section -->
-            <section id="projects" class="section">
+            <section id="projects" class="section" role="list" aria-label="Featured Projects">
               <div class="container">
                   <h2 class="section-title">Featured Projects</h2>
                   
@@ -219,404 +236,8 @@
                   </div>
 
                   <!-- Projects Grid -->
-                  <div class="projects-grid">
-
-                    <!-- ===== Project Item 1 ===== -->
-                                         <!-- ===== Project Item 2 ===== -->
-                    <div class="project-card architecture" data-category="architecture" 
-                    data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-
-                    <!-- Image Container -->
-                    <div class="project-image">
-                    <!-- Lazy-loaded Image -->
-                    <img src="images/placeholder.webp"
-                        data-src="images/Projects/Arc_1.jpg"
-                        alt="3D rendering of modern villa design"
-                        class="lazy-load"
-                        loading="lazy"
-                        width="800"
-                        height="600">
-
-                    <!-- Hover Overlay Content -->
-                    <div class="project-overlay">
-                        <h3 class="project-title">Modern Villa Design</h3>
-
-                        <!-- Tags List -->
-                        <div class="project-tags">
-                            <span>3D Modeling</span>
-                            <span>Interior Design</span>
-                        </div>
-
-                          <!-- Action Button -->
-                          <button class="project-view hover-lift" data-project="1">
-                            View Prototype
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- ===== Project Item 2 ===== -->
-                    <div class="project-card design" data-category="design" 
-                    data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-
-                    <!-- Image Container -->
-                    <div class="project-image">
-                    <!-- Lazy-loaded Image -->
-                    <img src="images/placeholder.webp"
-                        data-src="images/Projects/hu tao poster4.jpg"
-                        data-srcset="images/Projects/hu tao poster4-400.jpg 400w,
-                                     images/Projects/hu tao poster4-800.jpg 800w"
-                        alt="Hu Tao Poster"
-                        class="lazy-load"
-                        loading="lazy"
-                        width="800"
-                        height="600">
-
-                    <!-- Hover Overlay Content -->
-                    <div class="project-overlay">
-                        <h3>Hu Tao Poster</h3>
-
-                        <!-- Tags List -->
-                        <div class="project-tags">
-                            <span>Photoshop</span>
-                        </div>
-
-                          <!-- Action Button -->
-                          <button class="project-view hover-lift" data-project="2">
-                            View Prototype
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- ===== Project Item 3 ===== -->
-                    <div class="project-card design" data-category="design" 
-                    data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
-
-                    <!-- Image Container -->
-                    <div class="project-image">
-                      <!-- Lazy-loaded Image -->
-                    <img src="images/placeholder.webp"
-                        data-src="images/Projects/hu_tao.jpg"
-                        alt="Hu Tao Poster"
-                        class="lazy-load"
-                        loading="lazy"
-                        width="800"
-                        height="600">
-
-                      <!-- Hover Overlay Content -->
-                    <div class="project-overlay">
-                        <h3>Hu Tao Poster</h3>
-                        
-                        <!-- Tags List -->
-                        <div class="project-tags">
-                            <span>Photoshop</span>
-                        </div>
-
-                        <!-- Action Button -->
-                          <button class="project-view hover-lift" data-project="3">
-                            View Prototype
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                      <!-- ===== Project Item 4 ===== -->
-                      <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-                      
-                      <!-- Image Container -->
-                      <div class="project-image">
-                        <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/pink cover.png"
-                          data-srcset="images/Projects/pink cover-400.png 400w, images/Projects/pink cover-800.png 800w"
-                          alt="Anime Cover"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                      <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Anime Cover</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Photoshop</span>
-                          </div>
-
-                          <!-- Action Button -->
-                          <button class="project-view hover-lift" data-project="4">
-                            View Prototype
-                          </button>
-                        </div>
-                       </div>
-                      </div>
-
-                      <!-- ===== Project Item 5 ===== -->
-                      <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                        <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/jean poster.png"
-                          data-srcset="images/Projects/jean poster-400.png 400w, images/Projects/jean poster-800.png 800w"
-                          alt="Jean Poster"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                          <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Jean Poster</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Photoshop</span>
-                          </div>
-
-                          <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="5">
-                              View Prototype
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                    <!-- ===== Project Item 6 ===== -->
-                    <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                        <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/DEKU.jpg" 
-                          alt="Deku Quote Poster"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                          <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Deku Quote Poster</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Photoshop</span>
-                          </div>
-                          <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="6">
-                              View Prototype
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ===== Project Item 7 ===== -->
-                      <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-                      
-                      <!-- Image Container -->
-                      <div class="project-image">
-                        <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/heal1.jpg"
-                          alt="Healthy Food Poster"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                          <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Healthy Food Poster</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Photoshop</span>
-                          </div>
-
-                          <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="7">
-                              View Prototype
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      <!-- ===== Project Item 8 ===== -->
-                      <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                        <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/azin copy.jpg"
-                          data-srcset="images/Projects/azin copy-400.jpg 400w, images/Projects/azin copy-800.jpg 800w"
-                          alt="Azin Poster"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                          <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Azin Poster</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Photoshop</span>
-                          </div>
-
-                          <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="8">
-                              View Prototype
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      <!-- ===== Project Item 9 ===== -->
-                      <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                      <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/BANK-01.jpg"
-                          alt="Bank Vector"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                      <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Bank Vector</h3>
-                          
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Illustrator</span>
-                          </div>
-
-                          <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="9">
-                              View Prototype
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ===== Project Item 10 ===== -->
-                      <div class="project-card design" data-category="design" 
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                      <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/Moon night.jpg"
-                          data-srcset="images/Projects/Moon night-400.jpg 400w, images/Projects/Moon night-800.jpg 800w"
-                          alt="Moon Night Vector"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-                      
-                          <!-- Hover Overlay Content -->
-                          <div class="project-overlay">
-                          <h3>Moon Night Vector</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                              <span>Illustrator</span>
-                          </div>
-
-                          <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="10">
-                              View Prototype
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ===== Project Item 11 ===== -->
-                      <div class="project-card architecture" data-category="architecture"
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                      <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/Arc_2.jpg"
-                          alt="Front Elevation"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                      <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Front Elevation</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                            <span>3D Modeling</span>
-                            <span>Exterior Design</span>
-                            <span>AutoCAD</span>
-                          </div>
-
-                            <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="11">
-                              View Details
-                            </button>
-                         </div>
-                        </div>
-                      </div>
-
-                      <!-- ===== Project Item 12 ===== -->
-                      <div class="project-card architecture" data-category="architecture"
-                      data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-
-                      <!-- Image Container -->
-                      <div class="project-image">
-                      <!-- Lazy-loaded Image -->
-                      <img src="images/placeholder.webp"
-                          data-src="images/Projects/Arc_3.jpg"
-                          alt="Front Elevation"
-                          class="lazy-load"
-                          loading="lazy"
-                          width="800"
-                          height="600">
-
-                      <!-- Hover Overlay Content -->
-                      <div class="project-overlay">
-                          <h3>Front Elevation</h3>
-
-                          <!-- Tags List -->
-                          <div class="project-tags">
-                            <span>3D Modeling</span>
-                            <span>Exterior Design</span>
-                            <span>AutoCAD</span>
-                          </div>
-
-                            <!-- Action Button -->
-                            <button class="project-view hover-lift" data-project="12">
-                              View Details
-                            </button>
-                         </div>
-                        </div>
-                      </div>
-
-                    <!-- end of projects -->
+                  <div class="projects-grid" id="projects-grid">
+                  <!-- Cards will be rendered here -->
                   </div>
 
                   <!-- Pagination -->
@@ -628,16 +249,29 @@
 
                   <!-- Project Modal -->
                   <div class="project-modal">
-                    <div class="modal-content">
-                        <span class="modal-close">&times;</span>
-                        <img src="" alt="" class="modal-image">
-                        <div class="modal-details">
-                            <h2 class="modal-title"></h2>
-                            <p class="modal-description"></p>
-                            <div class="modal-links"></div>
+                    <div class="project-model-flex">
+                    <div class="modal-content modal-landscape">
+                      <span class="modal-close">&times;</span>
+
+                      <div class="modal-image-container">
+                        <img src="" alt="" class="modal-image" />
+                      </div>
+                      
+
+                      <div class="modal-details">
+                        <h2 class="modal-title"></h2>
+                        <p class="modal-description"></p>
+                        <div class="modal-links"></div>
+
+                        <div class="modal-nav">
+                          <button class="modal-prev btn btn-secondary">Previous</button>
+                          <button class="modal-next btn btn-secondary">Next</button>
                         </div>
+                      </div>
+                    </div>
                     </div>
                   </div>
+
                 </section>
 
 
@@ -675,6 +309,9 @@
                         <p>&copy; 2024 Ziad Amr. All rights reserved.</p>
                         <div class="social-links">
                             <a href="https://linkedin.com/in/ziad-amr-ah17" target="_blank" class="hover-lift"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/Ziad-Amr1" target="_blank" class="hover-lift"><i class="fa-brands fa-square-github"></i></a>
+                            <a href="https://www.behance.net/ZiadAmrSaid" target="_blank" class="hover-lift"><i class="fa-brands fa-square-behance"></i></a>
+                            <a href="https://dribbble.com/yourprofile" target="_blank" class="hover-lift"><i class="fa-brands fa-square-dribbble"></i></a>
                             <a href="mailto:zyadamr177@gmail.com" class="hover-lift"><i class="fas fa-envelope"></i></a>
                             <a href="tel:01122708543" class="hover-lift"><i class="fas fa-phone"></i></a>
                         </div>
@@ -685,6 +322,6 @@
     <!-- scripts -->
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>
