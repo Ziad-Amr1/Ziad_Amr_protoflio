@@ -25,3 +25,10 @@ dist-ssr
 
 # Old files
 /old_files
+/__old_file_ver__
+/__images__
+
+# docx
+*.docx
+
+.env
