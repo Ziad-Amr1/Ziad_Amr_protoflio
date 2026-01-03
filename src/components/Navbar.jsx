@@ -110,7 +110,9 @@ export default function Header() {
       </nav>
 
       {/* Controls */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center w-full md:w-auto gap-2">
+        {/* Push controls to the right on mobile */}
+        <div className="flex-1 md:hidden" />
         {/* Theme Toggle */}
         <label className="switch">
           <input
@@ -121,7 +123,7 @@ export default function Header() {
             aria-label="Toggle theme"
           />
           <div className="slider">
-            {/* نفس محتوى الـ SVGs بتاعك بدون تغيير */}
+            {/* Svgs Dont change */}
             <div className="sun-moon">
               <svg id="moon-dot-1" className="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
               <svg id="moon-dot-2" className="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
