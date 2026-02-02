@@ -38,7 +38,7 @@ export default function Projects({ itemsPerPage = 6 }) {
   const [activeFilter, setActiveFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [ratios, setRatios] = useState({});
-  const [loadingMap, setLoadingMap] = useState({});
+  const [loadedMap, setLoadedMap] = useState({});
 
   const projectsData = projectsJson.projects || [];
 
@@ -81,40 +81,69 @@ export default function Projects({ itemsPerPage = 6 }) {
     getImages
   );
 
+  // useEffect(() => {
+  //   let cancelled = false;
+
+  //   paginatedProjects.forEach((project) => {
+  //     if (project.aspect_ratio) return;
+  //     if (ratios[project.id]) return;
+  //     const imgs = getImages(project);
+  //     if (!imgs.length) return;
+  //     const img = new Image();
+  //     img.src = imgs[0];
+  //     img.onload = () => {
+  //       if (cancelled) return;
+  //       setRatios((prev) => ({
+  //         ...prev,
+  //         [project.id]: img.width / img.height,
+  //       }));
+  //     };
+  //     img.onerror = () => {
+  //       if (cancelled) return;
+  //       setRatios((prev) => ({
+  //         ...prev,
+  //         [project.id]: ASPECT_RATIOS.default,
+  //       }));
+  //     };
+  //   });
+
+  //   return () => {
+  //     cancelled = true;
+  //   };
+  // // }, [paginatedProjects, getImages, ratios]);
+  //   }, [paginatedProjects, getImages]);
+
   useEffect(() => {
     let cancelled = false;
 
     paginatedProjects.forEach((project) => {
-      if (project.aspect_ratio) return;
-      if (ratios[project.id]) return;
+      if (project.aspect_ratio || ratios[project.id]) return;
+
       const imgs = getImages(project);
       if (!imgs.length) return;
+
       const img = new Image();
       img.src = imgs[0];
+
       img.onload = () => {
-        if (cancelled) return;
-        setRatios((prev) => ({
-          ...prev,
-          [project.id]: img.width / img.height,
-        }));
-      };
-      img.onerror = () => {
-        if (cancelled) return;
-        setRatios((prev) => ({
-          ...prev,
-          [project.id]: ASPECT_RATIOS.default,
-        }));
+        if (!cancelled) {
+          setRatios((prev) =>
+            prev[project.id]
+              ? prev
+              : { ...prev, [project.id]: img.width / img.height }
+          );
+        }
       };
     });
 
     return () => {
       cancelled = true;
     };
-  // }, [paginatedProjects, getImages, ratios]);
-    }, [paginatedProjects, getImages]);
+  }, [paginatedProjects, getImages, ratios]);
+
 
   const handleThumbLoad = (projectId) => {
-    setLoadingMap((prev) => ({ ...prev, [projectId]: true }));
+    setLoadedMap((prev) => ({ ...prev, [projectId]: true }));
   };
 
   return (
@@ -125,7 +154,11 @@ export default function Projects({ itemsPerPage = 6 }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
-          className="text-3xl font-bold text-center text-blue-600 dark:text-[#AED4FF] mb-12"
+          className="
+            text-3xl font-bold text-center mb-12
+            bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]
+            bg-clip-text text-transparent
+          "
         >
           Featured Projects
         </motion.h2>
@@ -141,7 +174,7 @@ export default function Projects({ itemsPerPage = 6 }) {
           paginatedProjects={paginatedProjects}
           getImages={getImages}
           getProjectRatio={getProjectRatio}
-          loadingMap={loadingMap}
+          loadedMap={loadedMap}
           handleThumbLoad={handleThumbLoad}
           openModal={openModal}
           CARD_VARIANTS={CARD_VARIANTS}

@@ -7,7 +7,7 @@ export default function ProjectGrid({
   paginatedProjects,
   getImages,
   getProjectRatio,
-  loadingMap,
+  loadedMap,
   handleThumbLoad,
   openModal,
   CARD_VARIANTS,
@@ -21,14 +21,14 @@ export default function ProjectGrid({
       animate="visible"
       className="grid gap-6 sm:grid-cols-2 md:grid-cols-3"
     >
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         {paginatedProjects.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}
             getImages={getImages}
             getProjectRatio={getProjectRatio}
-            loadingMap={loadingMap}
+            loadedMap={loadedMap}
             handleThumbLoad={handleThumbLoad}
             openModal={openModal}
             CARD_VARIANTS={CARD_VARIANTS}

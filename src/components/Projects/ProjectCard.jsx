@@ -6,7 +6,7 @@ export default function ProjectCard({
   project,
   getImages,
   getProjectRatio,
-  loadingMap,
+  loadedMap,
   handleThumbLoad,
   openModal,
   CARD_VARIANTS,
@@ -31,7 +31,7 @@ export default function ProjectCard({
       className="group bg-white dark:bg-[#0f1f36] rounded-xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer"
     >
       <div className="w-full">
-        {!loadingMap[project.id] && (
+        {!loadedMap[project.id] && (
           <div
             className="animate-pulse bg-gray-200 dark:bg-gray-800"
             style={{ height: 240 }}
@@ -49,7 +49,7 @@ export default function ProjectCard({
             transition-transform duration-500
             transition-opacity duration-300
             group-hover:scale-105
-            ${loadingMap[project.id] ? "opacity-100" : "opacity-0"}
+            ${loadedMap[project.id] ? "opacity-100" : "opacity-0"}
           `}
         />
       </div>

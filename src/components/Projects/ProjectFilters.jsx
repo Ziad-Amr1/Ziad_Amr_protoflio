@@ -1,6 +1,22 @@
 // src/components/projects/ProjectFilters.jsx
 import React from "react";
 
+const baseTab =
+  "relative px-6 py-3 rounded-full font-semibold text-base \
+   transition-[background-color,color,box-shadow,transform] duration-300 ease-out \
+   cursor-pointer focus:outline-none text-sm sm:text-base";
+
+const inactiveTab =
+  "bg-white/70 text-gray-700 \
+   dark:bg-[#0f1f36] dark:text-[#AED4FF] \
+   hover:bg-white/90 hover:text-gray-900 \
+   dark:hover:bg-[#162c4d] dark:hover:text-[#E6F1FF] \
+   hover:shadow-md hover:-translate-y-[1px]";
+
+const activeTabStyle =
+  "bg-blue-200 text-blue-800 shadow-lg scale-[1.03] \
+   dark:bg-[#1b355a] dark:text-[#E6F1FF]";
+
 export default function ProjectFilters({ categories, activeFilter, setActiveFilter, setCurrentPage }) {
   return (
     <div className="flex justify-center gap-3 mb-8 flex-wrap">
@@ -14,21 +30,8 @@ export default function ProjectFilters({ categories, activeFilter, setActiveFilt
               setCurrentPage(1);
             }}
             className={`
-              px-4 py-2 rounded-full text-sm font-medium
-              transition-all duration-200
-              ${
-                active
-                  ? `
-                    bg-blue-200 text-blue-800
-                    dark:bg-[#162c4d] dark:text-[#E6F1FF]
-                    shadow-sm scale-105
-                  `
-                  : `
-                    bg-white/70 text-gray-700
-                    dark:bg-[#0f1f36] dark:text-[#AED4FF]
-                    hover:bg-white hover:shadow-sm
-                  `
-              }
+              ${baseTab}
+              ${activeFilter === cat ? activeTabStyle : inactiveTab}
             `}
             aria-pressed={active}
             aria-label={`filter by ${cat}`}

@@ -1,8 +1,18 @@
 // src/components/projects/ProjectModal.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import ImageSlider from "./ImageSlider";
+
+const baseButton =
+  "px-4 py-2 rounded-md font-medium \
+   bg-[#194a7a] text-white dark:bg-[#AED4FF] dark:text-[#0a192f] \
+   hover:brightness-110 \
+   disabled:bg-gray-400 \
+   disabled:text-gray-700 \
+   disabled:opacity-60 \
+   disabled:cursor-not-allowed \
+   transition";
 
 export default function ProjectModal({
   modalProject,
@@ -15,14 +25,56 @@ export default function ProjectModal({
   handlePrevProject,
   handleNextProject,
 }) {
-  if (!modalProject) return null;
+  /* =========================
+     Hooks (ALWAYS first)
+  ========================= */
 
-  const modalRatio = getProjectRatio(modalProject);
-  const modalIsPortrait = modalRatio < 1;
   const [isImageFullscreen, setIsImageFullscreen] = useState(false);
-  const images = getImages(modalProject);
+
+  const images = useMemo(
+    () => (modalProject ? getImages(modalProject) : []),
+    [modalProject, getImages]
+  );
+
+  const currentIndex = useMemo(() => {
+    if (!modalProject) return -1;
+    return filteredProjects.findIndex(
+      (p) => p.id === modalProject.id
+    );
+  }, [filteredProjects, modalProject]);
+
+  const modalRatio = modalProject ? getProjectRatio(modalProject) : 1;
+  const modalIsPortrait = modalRatio < 1;
   const hasMultipleImages = images.length > 1;
 
+  /* =========================
+     ESC key handling
+  ========================= */
+  useEffect(() => {
+    if (!modalProject) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        if (isImageFullscreen) {
+          setIsImageFullscreen(false);
+        } else {
+          closeModal();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isImageFullscreen, closeModal, modalProject]);
+
+  /* =========================
+     Render guard
+  ========================= */
+  if (!modalProject) return null;
+
+  /* =========================
+     JSX
+  ========================= */
   return (
     <AnimatePresence>
       <motion.div
@@ -36,6 +88,8 @@ export default function ProjectModal({
           p-2 md:p-4
           bg-black/65 backdrop-blur-sm
         "
+        role="dialog"
+        aria-modal="true"
         onClick={(e) => {
           if (e.target === e.currentTarget) closeModal();
         }}
@@ -55,6 +109,7 @@ export default function ProjectModal({
             flex flex-col
           "
         >
+          {/* Close */}
           <button
             onClick={closeModal}
             aria-label="Close"
@@ -68,11 +123,13 @@ export default function ProjectModal({
           >
             <X size={20} />
           </button>
+
           <div
             className={`flex h-full overflow-hidden ${
               modalIsPortrait ? "flex-col md:flex-row" : "flex-col"
             }`}
           >
+            {/* Media */}
             <div
               className={`
                 relative
@@ -88,82 +145,76 @@ export default function ProjectModal({
             >
               <button
                 onClick={() => setIsImageFullscreen(true)}
-                className={`
-                  absolute z-20 p-2 rounded-full
+                className="
+                  absolute top-3 left-3 z-20
+                  p-2 py-1 rounded-full
                   bg-black/60 text-white
                   hover:bg-black/80 transition
-                  ${modalIsPortrait ? "top-3 right-3" : "top-3 left-3"}
-                `}
-                title="View full image"
+                "
               >
                 ⛶
               </button>
+
               {hasMultipleImages && (
-                <div
-                  className="
-                    absolute bottom-3 right-3 z-20
-                    px-2 py-1 text-xs rounded
-                    bg-black/60 text-white
-                  "
-                >
+                <div className="
+                  absolute bottom-3 right-3 z-20
+                  px-2 py-1 text-xs rounded
+                  bg-black/60 text-white
+                ">
                   {imageIndex + 1} / {images.length}
                 </div>
               )}
-              {hasMultipleImages && (
-                <>
-                  <button
-                    onClick={() => setImageIndex((i) => Math.max(i - 1, 0))}
-                    className="
-                      absolute left-3 top-1/2 -translate-y-1/2 z-20
-                      p-2 rounded-full
-                      bg-black/60 text-white
-                      hover:bg-black/80
-                    "
-                  >
-                    ‹
-                  </button>
-                  <button
-                    onClick={() => setImageIndex((i) => Math.min(i + 1, images.length - 1))}
-                    className="
-                      absolute right-3 top-1/2 -translate-y-1/2 z-20
-                      p-2 rounded-full
-                      bg-black/60 text-white
-                      hover:bg-black/80
-                    "
-                  >
-                    ›
-                  </button>
-                </>
-              )}
-              <div className="w-full h-full flex items-center justify-center">
-                <ImageSlider
-                  images={images}
-                  video={modalProject.type === "video" ? modalProject.video : null}
-                  imageIndex={imageIndex}
-                  setImageIndex={setImageIndex}
-                />
-              </div>
+
+              <ImageSlider
+                images={images}
+                video={modalProject.type === "video" ? modalProject.video : null}
+                imageIndex={imageIndex}
+                setImageIndex={setImageIndex}
+              />
             </div>
+
+            {/* Content */}
             <div className="flex flex-col flex-1 p-6 overflow-y-auto">
               <h2 className="text-2xl font-bold text-blue-600 dark:text-[#AED4FF] mb-2">
                 {modalProject.title}
               </h2>
+
               <p className="text-gray-700 dark:text-gray-200 mb-4">
                 {modalProject.description}
               </p>
+
               <div className="flex flex-wrap gap-2 mb-4">
                 {modalProject.tags?.map((tag, i) => (
                   <span
                     key={i}
                     className="
-                      text-xs px-2 py-1 rounded
-                      bg-accent2 text-white
+                      inline-flex items-center
+                      px-3 py-1
+                      text-xs sm:text-sm
+                      font-medium
+                      rounded-full
+
+                      bg-blue-50 text-blue-700
+                      border border-blue-200
+
+                      dark:bg-[#0f2a44]
+                      dark:text-[#AED4FF]
+                      dark:border-[#1f3b5c]
+
+                      bg-gradient-to-r from-blue-50 to-blue-100
+                    dark:from-[#0f2a44] dark:to-[#163a5c]
+
+                      transition-colors
+                      hover:bg-blue-100
+                      dark:hover:bg-[#163a5c]
                     "
                   >
                     {tag}
                   </span>
+
                 ))}
               </div>
+
               <div className="flex flex-col gap-2 mb-6">
                 {modalProject.links?.map((link, i) => (
                   <a
@@ -173,55 +224,32 @@ export default function ProjectModal({
                     rel="noopener noreferrer"
                     className="
                       px-4 py-2 rounded-md text-sm font-medium text-center
-                      bg-blue-600 text-white dark:bg-[#AED4FF] dark:text-[#0a192f]
-                      hover:brightness-110
-                      transition
+                      bg-[#194a7a] text-white
+                      dark:bg-[#AED4FF] dark:text-[#0a192f]
+                      hover:brightness-110 transition
                     "
                   >
                     {link.text}
                   </a>
                 ))}
               </div>
-              <div
-                className="
-                  mt-auto pt-4
-                  flex justify-between
-                  border-t border-gray-200 dark:border-white/15
-                "
-              >
+
+              <div className="
+                mt-auto pt-4
+                flex justify-between
+                border-t border-gray-200 dark:border-white/15
+              ">
                 <button
                   onClick={handlePrevProject}
-                  disabled={
-                    filteredProjects.findIndex((p) => p.id === modalProject.id) === 0
-                  }
-                  className="
-                    px-4 py-2 rounded-md font-medium
-                    bg-blue-600 text-white dark:bg-[#AED4FF] dark:text-[#0a192f]
-                    hover:brightness-110
-                    disabled:bg-gray-400
-                    disabled:text-gray-700
-                    disabled:opacity-60
-                    disabled:cursor-not-allowed
-                    transition
-                  "
+                  disabled={currentIndex <= 0}
+                  className={baseButton}
                 >
                   « Previous
                 </button>
                 <button
                   onClick={handleNextProject}
-                  disabled={
-                    filteredProjects.findIndex((p) => p.id === modalProject.id) === filteredProjects.length - 1
-                  }
-                  className="
-                    px-4 py-2 rounded-md font-medium
-                    bg-blue-600 text-white dark:bg-[#AED4FF] dark:text-[#0a192f]
-                    hover:brightness-110
-                    disabled:bg-gray-400
-                    disabled:text-gray-700
-                    disabled:opacity-60
-                    disabled:cursor-not-allowed
-                    transition
-                  "
+                  disabled={currentIndex >= filteredProjects.length - 1}
+                  className={baseButton}
                 >
                   Next »
                 </button>
@@ -229,9 +257,12 @@ export default function ProjectModal({
             </div>
           </div>
         </motion.div>
+
+        {/* Fullscreen image */}
         <AnimatePresence>
           {isImageFullscreen && (
             <motion.div
+              key="fullscreen"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
