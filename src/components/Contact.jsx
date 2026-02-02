@@ -87,9 +87,14 @@ function Contact() {
           Let’s work together
         </motion.h2>
 
-        <p className="text-center text-gray-500 dark:text-gray-400 mt-2">
+        <motion.p
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+         className="text-center text-gray-500 dark:text-gray-400 mt-2">
           Have a question or a project in mind? Feel free to reach out.
-        </p>
+        </motion.p>
 
         {/* Form */}
         <motion.form
@@ -136,6 +141,7 @@ function Contact() {
                 peer-not-placeholder-shown:text-blue-600
                 dark:peer-not-placeholder-shown:text-[#AED4FF]
               "
+              htmlFor="name"
             >
               Name
             </label>
@@ -172,6 +178,7 @@ function Contact() {
                 peer-not-placeholder-shown:text-blue-600
                 dark:peer-not-placeholder-shown:text-[#AED4FF]
               "
+              htmlFor="email"
             >
               Email
             </label>
@@ -206,6 +213,7 @@ function Contact() {
                 peer-not-placeholder-shown:text-blue-600
                 dark:peer-not-placeholder-shown:text-[#AED4FF]
               "
+              htmlFor="subject"
             >
               Subject (optional)
             </label>
@@ -242,6 +250,7 @@ function Contact() {
                 peer-not-placeholder-shown:text-blue-600
                 dark:peer-not-placeholder-shown:text-[#AED4FF]
               "
+              htmlFor="message"
             >
               Message
             </label>
