@@ -92,6 +92,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* scrollbar */
+  --scrollbar-thumb: var(--color-accent1);
+  --scrollbar-track: var(--color-light);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 /* =========================================
@@ -192,6 +201,10 @@ section {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* scrollbar */
+  --scrollbar-thumb: var(--color-accent2);
+  --scrollbar-track: var(--color-dark);
 }
 
 /* =========================================
@@ -248,4 +261,29 @@ html.dark body {
 
 .rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+
+/* scrollbar */
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--scrollbar-thumb) 85%,
+    black
+  );
 }
