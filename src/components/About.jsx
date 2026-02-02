@@ -40,7 +40,7 @@ function AboutCard({ icon: Icon, title, align = "center", children }) {
       "
     >
       {/* Icon */}
-      <Icon className="text-4xl mb-4 text-[#4F7FD9] dark:text-[#9ECFFF]" />
+      <Icon className="text-4xl mb-4 text-[#4F7FD9] dark:text-[#9ECFFF]" aria-hidden="true" />
 
       {/* Title */}
       <h3

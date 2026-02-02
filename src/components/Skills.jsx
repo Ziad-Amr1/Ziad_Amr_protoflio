@@ -47,6 +47,23 @@ function Skills() {
   const { activeTab, changeTab } = useTabs(categories, "Architecture & BIM");
   const [openSkill, setOpenSkill] = useState(null);
 
+const baseTab =
+  "relative px-6 py-3 rounded-full font-semibold text-base \
+   transition-[background-color,color,box-shadow,transform] duration-300 ease-out \
+   cursor-pointer focus:outline-none text-sm sm:text-base";
+
+const inactiveTab =
+  "bg-white/70 text-gray-700 \
+   dark:bg-[#0f1f36] dark:text-[#AED4FF] \
+   hover:bg-white/90 hover:text-gray-900 \
+   dark:hover:bg-[#162c4d] dark:hover:text-[#E6F1FF] \
+   hover:shadow-md hover:-translate-y-[1px]";
+
+const activeTabStyle =
+  "bg-blue-200 text-blue-800 shadow-lg scale-[1.03] \
+   dark:bg-[#1b355a] dark:text-[#E6F1FF]";
+
+
   return (
     <section id="skills" className="py-20">
       <div className="container mx-auto px-[5%]">
@@ -56,8 +73,11 @@ function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl font-bold text-center mb-12
-          text-blue-600 dark:text-[#AED4FF]"
+          className="
+            text-3xl font-bold text-center mb-12
+            bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]
+            bg-clip-text text-transparent
+          "
         >
           Skills & Tools
         </motion.h2>
@@ -68,22 +88,26 @@ function Skills() {
             <button
               key={cat}
               onClick={() => changeTab(cat)}
-              className={`px-5 py-2 rounded-full font-semibold transition-all
-                ${
-                  activeTab === cat
-                    // ? "bg-blue-600 text-white dark:bg-[#AED4FF] dark:text-[#0a192f]"
-                    // : "bg-blue-100 text-blue-600 dark:bg-[#112240] dark:text-[#AED4FF]"
-                    ? `
-                    bg-blue-200 text-blue-800
-                    dark:bg-[#162c4d] dark:text-[#E6F1FF]
-                    shadow-sm scale-105
-                  `
-                  : `
-                    bg-white/70 text-gray-700
-                    dark:bg-[#0f1f36] dark:text-[#AED4FF]
-                    hover:bg-white hover:shadow-sm
-                  `
-                }`}
+              // className={`px-5 py-2 rounded-full font-semibold transition-all cursor-pointer
+              //   ${
+              //     activeTab === cat
+              //       // ? "bg-blue-600 text-white dark:bg-[#AED4FF] dark:text-[#0a192f]"
+              //       // : "bg-blue-100 text-blue-600 dark:bg-[#112240] dark:text-[#AED4FF]"
+              //       ? `
+              //       bg-blue-200 text-blue-800
+              //       dark:bg-[#162c4d] dark:text-[#E6F1FF]
+              //       shadow-sm scale-105
+              //     `
+              //     : `
+              //       bg-white/70 text-gray-700
+              //       dark:bg-[#0f1f36] dark:text-[#AED4FF]
+              //       hover:bg-white hover:shadow-sm
+              //     `
+              //   }`}
+              className={`
+                ${baseTab}
+                ${activeTab === cat ? activeTabStyle : inactiveTab}
+              `}
             >
               {cat}
             </button>
@@ -111,7 +135,7 @@ function Skills() {
                   rounded-xl p-4 shadow-md cursor-pointer"
                   onClick={() =>
                     setOpenSkill(
-                      openSkill === skill.name ? null : skill.name
+                      openSkill === `${activeTab}-${skill.name}` ? null : `${activeTab}-${skill.name}`
                     )
                   }
                 >
@@ -182,24 +206,34 @@ function Skills() {
                     {/* Back */}
                     <div
                       className="absolute inset-0 backface-hidden rotate-y-180
-                      rounded-xl p-3
-                      bg-blue-50 text-blue-700
-                      dark:bg-[#0f2a44] dark:text-[#E6F1FF]
-                      flex flex-col justify-center gap-2"
+                        rounded-xl p-4
+                        bg-gradient-to-br from-blue-50 to-blue-100
+                        dark:from-[#112240] dark:to-[#0f1f36]
+                        text-blue-800 dark:text-[#E6F1FF]
+                        flex flex-col justify-center gap-3
+                      "
                     >
                       <div className="flex flex-wrap gap-1">
                         {skill.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] px-2 py-0.5 rounded-full
-                            bg-blue-100 text-blue-700
-                            dark:bg-[#112240] dark:text-[#AED4FF]"
+                            className="
+                              text-xs font-medium
+                              px-2.5 py-1 rounded-full
+                              bg-blue-100 text-blue-800
+                              border border-blue-200
+                              dark:bg-[#1b355a] dark:text-[#E6F1FF]
+                              dark:border-[#2b4d7a]
+                            "
                           >
                             {tag}
                           </span>
+
                         ))}
                       </div>
-                      <p className="text-xs leading-snug">{skill.note}</p>
+                      <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                        {skill.note}
+                      </p>
                     </div>
                   </div>
                 </div>
