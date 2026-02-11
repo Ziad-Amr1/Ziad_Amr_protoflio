@@ -1,205 +1,205 @@
 {
-    "projects": [
-        {
-            "id": 1,
-            "title": "Modern Villa Design",
-            "category": "architecture",
-            "image": "images/Projects/Arc_1.webp",
-            "description": "Complete architectural design for a luxury villa including 3D modeling, interior design, and landscape planning.",
-            "aspect_ratio": "landscape",
-            "tags": ["3D Modeling", "Interior Design"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 2,
-            "title": "Hu Tao Poster",
-            "category": "design",
-            "image": "images/Projects/hu tao poster4.webp",
-            "description": "A vibrant and eye-catching poster design for a luxury brand.",
-            "aspect_ratio": "portrait",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 3,
-            "title": "Hu Tao Poster",
-            "category": "design",
-            "image": "images/Projects/hu_tao.webp",
-            "description": "A vibrant and eye-catching poster design for a luxury brand.",
-            "aspect_ratio": "portrait",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 4,
-            "title": "Anime Cover",
-            "category": "design",
-            "image": "images/Projects/pink cover.webp",
-            "description": "A stunning and eye-catching cover design for an anime series.",
-            "aspect_ratio": "landscape",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 5,
-            "title": "Jean Poster",
-            "category": "design",
-            "image": "images/Projects/jean poster.webp",
-            "description": "A Poster for Jean from Genshin Impact",
-            "aspect_ratio": "portrait",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 6,
-            "title": "Deku Quote Poster",
-            "category": "design",
-            "image": "images/Projects/DEKU.webp",
-            "description": "Quote from the MHA anime series Deku",
-            "aspect_ratio": "portrait",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 7,
-            "title": "Healthy Food Poster",
-            "category": "design",
-            "image": "images/Projects/heal1.webp",
-            "description": "Poster for healthy food",
-            "aspect_ratio": "portrait",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 8,
-            "title": "Azin Poster",
-            "category": "design",
-            "image": "images/Projects/azin copy.webp",
-            "description": "Azin poster with a car.",
-            "aspect_ratio": "landscape",
-            "tags": ["Photoshop"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 9,
-            "title": "Bank Vector",
-            "category": "design",
-            "image": "images/Projects/BANK-01.webp",
-            "description": "A vector for bank",
-            "aspect_ratio": "landscape",
-            "tags": ["Illustrator"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 10,
-            "title": "Moon Night Vector",
-            "category": "design",
-            "image": "images/Projects/Moon night.webp",
-            "description": "A vector for moon night",
-            "aspect_ratio": "landscape",
-            "tags": ["Illustrator"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 11,
-            "title": "Front Elevation",
-            "category": "architecture",
-            "image": "images/Projects/Arc_2.webp",
-            "description": "A vibrant and eye-catching poster design for a luxury brand.",
-            "aspect_ratio": "landscape",
-            "tags": ["3D Modeling", "Exterior Design", "AutoCAD"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-            "id": 12,
-            "title": "Front Elevation",
-            "category": "architecture",
-            "image": "images/Projects/Arc_3.webp",
-            "description": "A vibrant and eye-catching poster design for a luxury brand.",
-            "aspect_ratio": "landscape",
-            "tags": ["3D Modeling", "Exterior Design", "AutoCAD"],
-            "links": [
-                {"text": "View Prototype", "url": "#"},
-                {"text": "Case Study", "url": "#"}
-            ]
-        },
-        {
-        "id": 13,
-        "title": "Level UP website",
-        "category": "development",
-        "image": "images/Projects/LevelUP_cover.webp",
-        "video": "images/Projects/webvideo1.mp4",
-        "type": "video",
-        "description": "A front end website for a store for genshin impact",
-        "aspect_ratio": "landscape",
-        "tags": ["React", "Tailwind CSS", "JavaScript"],
-        "links": [
-            {"text": "Live Demo", "url": "https://your-app.vercel.app"},
-            {"text": "Source Code", "url": "https://github.com/ziad/task-app"}
-            ]
-        },
-        {
-        "id": 14,
-        "title": "Gaming website",
-        "category": "development",
-        "image": "images/Projects/Gaming_cover.webp",
-        "video": "images/Projects/webvideo2.mp4",
-        "type": "video",
-        "description": "A front end website for a gaming",
-        "aspect_ratio": "landscape",
-        "tags": ["HTML", "CSS", "JavaScript", "Bootstrap"],
-        "links": [
-            {"text": "Live Demo", "url": "https://your-app.vercel.app"},
-            {"text": "Source Code", "url": "https://github.com/ziad/task-app"}
-            ]
-        },
-        {
-        "id": 15,
-        "title": "Lumo website",
-        "category": "development",
-        "image": "images/Projects/Lumo_cover.webp",
-        "video": "images/Projects/webvideo1.mp4",
-        "type": "video",
-        "description": "A front end website for manga and manwha",
-        "aspect_ratio": "landscape",
-        "tags": ["React", "Tailwind CSS", "JavaScript"],
-        "links": [
-            {"text": "Live Demo", "url": "https://your-app.vercel.app"},
-            {"text": "Source Code", "url": "https://github.com/ziad/task-app"}
-            ]
-        }
-    ]
+  "projects": [
+    {
+      "id": 1,
+      "title": "Modern Luxury Villa",
+      "category": "architecture",
+      "image": "images/Projects/Arc_1.webp",
+      "description": "Full architectural design of a modern luxury villa including 3D visualization, interior detailing, and landscape integration with a contemporary aesthetic approach.",
+      "aspect_ratio": "landscape",
+      "tags": ["3D Modeling", "Interior Design", "Landscape"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Hu Tao Character Poster",
+      "category": "design",
+      "image": "images/Projects/hu tao poster4.webp",
+      "description": "Creative character poster inspired by Genshin Impact featuring dynamic composition, color grading, and cinematic lighting effects.",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Photo Manipulation"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Hu Tao Dark Edition Poster",
+      "category": "design",
+      "image": "images/Projects/hu_tao.webp",
+      "description": "Alternative poster variation featuring darker tones, dramatic shadows, and enhanced character focus with advanced color grading techniques.",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Color Grading"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Anime Series Cover Art",
+      "category": "design",
+      "image": "images/Projects/pink cover.webp",
+      "description": "High-impact anime cover design focused on typography balance, bold color contrast, and modern layout composition.",
+      "aspect_ratio": "landscape",
+      "tags": ["Photoshop", "Cover Design"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Jean Character Poster",
+      "category": "design",
+      "image": "images/Projects/jean poster.webp",
+      "description": "Stylized promotional poster highlighting character presence through lighting manipulation and depth-focused composition.",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Poster Design"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Deku Motivational Quote Design",
+      "category": "design",
+      "image": "images/Projects/DEKU.webp",
+      "description": "Typography-driven motivational artwork inspired by anime themes with dramatic shadows and vibrant contrast.",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Typography"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Healthy Lifestyle Campaign Poster",
+      "category": "design",
+      "image": "images/Projects/heal1.webp",
+      "description": "Marketing poster designed for a healthy food campaign focusing on clean visuals, fresh color palette, and modern layout.",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Advertising Design"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Automotive Promotional Poster",
+      "category": "design",
+      "image": "images/Projects/azin copy.webp",
+      "description": "Car-themed promotional artwork featuring bold lighting effects and strong focal composition for advertising use.",
+      "aspect_ratio": "landscape",
+      "tags": ["Photoshop", "Advertising"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Banking Vector Illustration",
+      "category": "design",
+      "image": "images/Projects/BANK-01.webp",
+      "description": "Minimal vector illustration created for financial branding using clean lines and scalable design principles.",
+      "aspect_ratio": "landscape",
+      "tags": ["Illustrator", "Vector Art"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Moon Night Landscape Vector",
+      "category": "design",
+      "image": "images/Projects/Moon night.webp",
+      "description": "Flat-style nighttime landscape illustration focusing on depth layering and harmonious color blending.",
+      "aspect_ratio": "landscape",
+      "tags": ["Illustrator", "Vector Art"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Modern Front Elevation Concept",
+      "category": "architecture",
+      "image": "images/Projects/Arc_2.webp",
+      "description": "Contemporary residential facade design emphasizing geometric balance, material contrast, and realistic 3D rendering.",
+      "aspect_ratio": "landscape",
+      "tags": ["3D Modeling", "Exterior Design", "AutoCAD"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Contemporary Villa Elevation Concept",
+      "category": "architecture",
+      "image": "images/Projects/Arc_3.webp",
+      "description": "Modern residential elevation concept showcasing material contrast, lighting realism, and refined facade detailing using 3D modeling tools.",
+      "aspect_ratio": "landscape",
+      "tags": ["3D Modeling", "Exterior Design", "AutoCAD"],
+      "links": [
+        { "text": "View Project", "url": "#" },
+        { "text": "Case Study", "url": "#" }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Level UP E-Commerce Website",
+      "category": "development",
+      "image": "images/Projects/LevelUP_cover.webp",
+      "video": "images/Projects/webvideo1.mp4",
+      "type": "video",
+      "description": "Responsive e-commerce frontend built with React and Tailwind CSS featuring dynamic UI components and smooth animations.",
+      "aspect_ratio": "landscape",
+      "tags": ["React", "Tailwind CSS", "JavaScript"],
+      "links": [
+        { "text": "Live Demo", "url": "https://your-app.vercel.app" },
+        { "text": "Source Code", "url": "https://github.com/ziad/task-app" }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Gaming Landing Page",
+      "category": "development",
+      "image": "images/Projects/Gaming_cover.webp",
+      "video": "images/Projects/webvideo2.mp4",
+      "type": "video",
+      "description": "Interactive gaming landing page built using HTML, CSS, Bootstrap, and JavaScript with responsive design principles.",
+      "aspect_ratio": "landscape",
+      "tags": ["HTML", "CSS", "JavaScript", "Bootstrap"],
+      "links": [
+        { "text": "Live Demo", "url": "https://your-app.vercel.app" },
+        { "text": "Source Code", "url": "https://github.com/ziad/task-app" }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Lumo Manga Platform",
+      "category": "development",
+      "image": "images/Projects/Lumo_cover.webp",
+      "video": "images/Projects/webvideo1.mp4",
+      "type": "video",
+      "description": "Modern manga browsing platform developed with React and Tailwind CSS focusing on performance and clean UI structure.",
+      "aspect_ratio": "landscape",
+      "tags": ["React", "Tailwind CSS", "JavaScript"],
+      "links": [
+        { "text": "Live Demo", "url": "https://your-app.vercel.app" },
+        { "text": "Source Code", "url": "https://github.com/ziad/task-app" }
+      ]
+    }
+  ]
 }
