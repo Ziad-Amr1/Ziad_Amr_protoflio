@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import ImageSlider from "./ImageSlider";
 
 const baseButton =
-  "px-4 py-2 rounded-md font-medium \
+  "py-3 rounded-md font-medium \
    bg-[#194a7a] text-white dark:bg-[#AED4FF] dark:text-[#0a192f] \
    hover:brightness-110 \
    disabled:bg-gray-400 \
@@ -31,21 +31,29 @@ export default function ProjectModal({
 
   const [isImageFullscreen, setIsImageFullscreen] = useState(false);
 
+  const [activeSection, setActiveSection] = useState("description");
+
+  const toggleSection = (section) => {
+    setActiveSection((prev) => (prev === section ? null : section));
+  };
+
   const images = useMemo(
     () => (modalProject ? getImages(modalProject) : []),
-    [modalProject, getImages]
+    [modalProject, getImages],
   );
 
   const currentIndex = useMemo(() => {
     if (!modalProject) return -1;
-    return filteredProjects.findIndex(
-      (p) => p.id === modalProject.id
-    );
+    return filteredProjects.findIndex((p) => p.id === modalProject.id);
   }, [filteredProjects, modalProject]);
 
   const modalRatio = modalProject ? getProjectRatio(modalProject) : 1;
   const modalIsPortrait = modalRatio < 1;
   const hasMultipleImages = images.length > 1;
+
+  const hasLinks =
+    modalProject?.links?.filter((link) => link.url && link.url !== "#").length >
+    0;
 
   /* =========================
      ESC key handling
@@ -66,6 +74,16 @@ export default function ProjectModal({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isImageFullscreen, closeModal, modalProject]);
+
+  /* =========================
+      Reset section on project change
+  ========================= */
+
+  useEffect(() => {
+    if (modalProject) {
+      setActiveSection("description");
+    }
+  }, [modalProject]);
 
   /* =========================
      Render guard
@@ -143,34 +161,42 @@ export default function ProjectModal({
                 }
               `}
             >
-              <button
-                onClick={() => setIsImageFullscreen(true)}
-                className="
+              {modalProject.type !== "video" && (
+                <button
+                  onClick={() => setIsImageFullscreen(true)}
+                  className="
                   absolute top-3 left-3 z-20
                   p-2 py-1 rounded-full
                   bg-black/60 text-white
                   hover:bg-black/80 transition
                 "
-              >
-                ⛶
-              </button>
+                >
+                  ⛶
+                </button>
+              )}
 
               {hasMultipleImages && (
-                <div className="
+                <div
+                  className="
                   absolute bottom-3 right-3 z-20
                   px-2 py-1 text-xs rounded
                   bg-black/60 text-white
-                ">
+                "
+                >
                   {imageIndex + 1} / {images.length}
                 </div>
               )}
 
-              <ImageSlider
-                images={images}
-                video={modalProject.type === "video" ? modalProject.video : null}
-                imageIndex={imageIndex}
-                setImageIndex={setImageIndex}
-              />
+              {images.length > 0 && (
+                <ImageSlider
+                  images={images}
+                  video={
+                    modalProject.type === "video" ? modalProject.video : null
+                  }
+                  imageIndex={imageIndex}
+                  setImageIndex={setImageIndex}
+                />
+              )}
             </div>
 
             {/* Content */}
@@ -179,66 +205,136 @@ export default function ProjectModal({
                 {modalProject.title}
               </h2>
 
-              <p className="text-gray-700 dark:text-gray-200 mb-4">
-                {modalProject.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {modalProject.tags?.map((tag, i) => (
+              {/* Description Section */}
+              <div className="mb-3 border-b border-gray-200 dark:border-white/10">
+                <button
+                  onClick={() => toggleSection("description")}
+                  className="w-full text-left py-2 font-semibold flex justify-between items-center"
+                >
+                  Project Description
                   <span
-                    key={i}
-                    className="
-                      inline-flex items-center
-                      px-3 py-1
-                      text-xs sm:text-sm
-                      font-medium
-                      rounded-full
-
-                      bg-blue-50 text-blue-700
-                      border border-blue-200
-
-                      dark:bg-[#0f2a44]
-                      dark:text-[#AED4FF]
-                      dark:border-[#1f3b5c]
-
-                      bg-gradient-to-r from-blue-50 to-blue-100
-                    dark:from-[#0f2a44] dark:to-[#163a5c]
-
-                      transition-colors
-                      hover:bg-blue-100
-                      dark:hover:bg-[#163a5c]
-                    "
+                    className={`transition-transform ${
+                      activeSection === "description" ? "rotate-180" : ""
+                    }`}
                   >
-                    {tag}
+                    ▼
                   </span>
+                </button>
 
-                ))}
+                <AnimatePresence>
+                  {activeSection === "description" && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-gray-700 dark:text-gray-200 pb-3">
+                        {modalProject.description}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              <div className="flex flex-col gap-2 mb-6">
-                {modalProject.links?.map((link, i) => (
-                  <a
-                    key={i}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
-                      px-4 py-2 rounded-md text-sm font-medium text-center
-                      bg-[#194a7a] text-white
-                      dark:bg-[#AED4FF] dark:text-[#0a192f]
-                      hover:brightness-110 transition
-                    "
+              <div className="mb-3 border-b border-gray-200 dark:border-white/10">
+                <button
+                  onClick={() => toggleSection("tags")}
+                  className="w-full text-left py-2 font-semibold flex justify-between items-center"
+                >
+                  Technologies
+                  <span
+                    className={`transition-transform ${
+                      activeSection === "tags" ? "rotate-180" : ""
+                    }`}
                   >
-                    {link.text}
-                  </a>
-                ))}
+                    ▼
+                  </span>
+                </button>
+
+                <AnimatePresence>
+                  {activeSection === "tags" && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex flex-wrap gap-2 pb-3">
+                        {modalProject.tags?.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="px-3 py-1 text-xs rounded-full bg-blue-100 dark:bg-[#0f2a44]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              <div className="
-                mt-auto pt-4
-                flex justify-between
+              {hasLinks && (
+                <div className="mb-3">
+                  <button
+                    onClick={() => hasLinks && toggleSection("links")}
+                    disabled={!hasLinks}
+                    className={`
+                    w-full text-left py-2 font-semibold
+                    flex justify-between items-center
+                    ${!hasLinks ? "opacity-50 cursor-not-allowed" : ""}
+                  `}
+                  >
+                    Project Links
+                    <span
+                      className={`transition-transform ${
+                        activeSection === "links" ? "rotate-180" : ""
+                      }`}
+                    >
+                      ▼
+                    </span>
+                  </button>
+
+                  <AnimatePresence>
+                    {activeSection === "links" && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden pb-3"
+                      >
+                        <div className="flex flex-col gap-2">
+                          {modalProject.links?.map((link, i) => (
+                            <a
+                              key={i}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-4 py-2 rounded-md text-sm text-center bg-[#194a7a] text-white dark:bg-[#AED4FF] dark:text-[#0a192f]"
+                            >
+                              {link.text}
+                            </a>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+
+              <div
+                className="
+                  mt-auto pt-4
+                  flex flex-col sm:flex-row
+                  gap-3 sm:gap-0
+                  justify-between
                 border-t border-gray-200 dark:border-white/15
-              ">
+              "
+              >
                 <button
                   onClick={handlePrevProject}
                   disabled={currentIndex <= 0}
@@ -275,7 +371,7 @@ export default function ProjectModal({
               onClick={() => setIsImageFullscreen(false)}
             >
               <motion.img
-                src={images[imageIndex]}
+                src={images?.[imageIndex]}
                 initial={{ scale: 0.95 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.95 }}
