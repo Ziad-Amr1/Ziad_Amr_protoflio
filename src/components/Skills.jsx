@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useTabs } from "../hooks/useTabs";
 import { fadeInUp } from "../utils/motionVariants";
-import { Code2 } from "lucide-react";
+import { Code2, Gamepad2, Database } from "lucide-react";
 
 function Skills() {
   /* ===============================
@@ -60,6 +60,26 @@ function Skills() {
               level: "Used",
               note: "Image refinement",
             },
+            {
+              name: "Adobe InDesign",
+              level: "Used",
+              note: "Typography & layout",
+            },
+            {
+              name: "Adobe Dimension",
+              level: "Used",
+              note: "Dimensioning & measurement",
+            },
+            {
+              name: "Adobe Premiere Pro",
+              level: "Used",
+              note: "Video editing & motion storytelling",
+            },
+            {
+              name: "Canva",
+              level: "Used",
+              note: "Quick visual assets & social design",
+            },
           ],
         },
         {
@@ -79,29 +99,34 @@ function Skills() {
       tagline:
         "Building scalable, component-driven interfaces with clean architecture.",
       accent: "from-[#4F7FD9] to-[#9ECFFF]",
+groups: [
+    {
+      title: "Core Web Stack",
       skills: [
         { name: "HTML5", level: "Core", note: "Semantic structure" },
-        {
-          name: "CSS3",
-          level: "Core",
-          note: "Responsive layouts & styling logic",
-        },
-        {
-          name: "JavaScript",
-          level: "Core",
-          note: "Async logic & DOM handling",
-        },
+        { name: "CSS3", level: "Core", note: "Responsive layouts & styling logic" },
+        { name: "JavaScript", level: "Core", note: "Async logic & DOM handling" },
         { name: "React", level: "Core", note: "Component-based architecture" },
-        {
-          name: "TailwindCSS",
-          level: "Core",
-          note: "Utility-first design system",
-        },
+      ],
+    },
+    {
+      title: "UI & Styling",
+      skills: [
+        { name: "TailwindCSS", level: "Core", note: "Utility-first design system" },
+        { name: "Bootstrap", level: "Used", note: "Component-based UI framework" },
+      ],
+    },
+    {
+      title: "Development Tools",
+      skills: [
         { name: "Vite", level: "Used", note: "Modern dev tooling" },
         { name: "Git", level: "Used", note: "Version control workflows" },
         { name: "GitHub", level: "Used", note: "Collaboration & repositories" },
+        { name: "VS Code", level: "Used", note: "Primary development environment" },
       ],
     },
+  ],
+},
 
     "Expanding Horizons": {
       tagline:
@@ -163,6 +188,15 @@ function Skills() {
   // );
 
   /* ===============================
+      icons
+  =============================== */
+
+  const customIcons = {
+    "Game Development": Gamepad2,
+    "Data Engineering": Database,
+  };
+
+  /* ===============================
      Unified Skill Card
   =============================== */
 
@@ -171,6 +205,8 @@ function Skills() {
     const imgSrc = `/images/skills/${imgName}.webp`;
     const levelClass = levelStyles[skill.level] || "";
     const isCore = skill.level === "Core";
+
+    const CustomIcon = customIcons[skill.name];
 
     return (
       <motion.div
@@ -195,22 +231,30 @@ function Skills() {
             <div className="flex items-center gap-3 min-w-0">
               <div
                 className="
-                relative w-10 h-10 flex items-center justify-center
-                bg-gray-50 dark:bg-[#0e1b2e]
-                rounded-md shrink-0
-              "
+                  relative w-10 h-10 flex items-center justify-center
+                  bg-gray-50 dark:bg-[#0e1b2e]
+                  rounded-md shrink-0
+                "
               >
-                <img
-                  src={imgSrc}
-                  alt={skill.name}
-                  className="w-6 h-6 object-contain"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                    e.target.parentElement.querySelector("svg").style.opacity =
-                      "1";
-                  }}
-                />
-                <Code2 size={18} className="text-gray-400 absolute opacity-0" />
+                {CustomIcon ? (
+                  <CustomIcon size={18} className="text-gray-400" />
+                ) : (
+                  <>
+                    <img
+                      src={imgSrc}
+                      alt={skill.name}
+                      className="w-6 h-6 object-contain"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.opacity = "1";
+                      }}
+                    />
+                    <Code2
+                      size={18}
+                      className="text-gray-400 absolute opacity-0"
+                    />
+                  </>
+                )}
               </div>
 
               <p className="text-sm font-medium text-gray-800 dark:text-white truncate flex items-center gap-2">

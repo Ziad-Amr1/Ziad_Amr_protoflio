@@ -5,5 +5,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "__old_file_ver__/Projects", "old_files/Fist_try.jsx", "src/components/Projects/Projects.jsx", "__old_file_ver__/Projects.jsx"]
+  "include": ["src", "__old_file_ver__/Projects", "old_files/Fist_try.jsx", "src/components/Projects/Projects.jsx", "__old_file_ver__/Projects.jsx", "__old_file_ver__/Skills copy 2.jsx", "__old_file_ver__/Skills copy.jsx"]
 }
