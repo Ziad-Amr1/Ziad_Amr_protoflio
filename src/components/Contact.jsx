@@ -5,8 +5,7 @@ import { fadeInUp } from "../utils/motionVariants";
 import emailjs from "@emailjs/browser";
 import toast, { Toaster } from "react-hot-toast";
 
-const SERVICE_ID =
-  import.meta.env.VITE_EMAILJS_SERVICE_ID ?? "service_z2vzgbc";
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID ?? "service_z2vzgbc";
 const TEMPLATE_ID =
   import.meta.env.VITE_EMAILJS_TEMPLATE_ID ?? "template_g4zvyau";
 const PUBLIC_KEY =
@@ -21,8 +20,7 @@ function Contact() {
   });
   const [loading, setLoading] = useState(false);
 
-  const emailIsValid = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const emailIsValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +53,7 @@ function Contact() {
           subject: formData.subject || "(No subject)",
           message: formData.message,
         },
-        PUBLIC_KEY
+        PUBLIC_KEY,
       );
 
       toast.dismiss(loadingToast);
@@ -76,25 +74,29 @@ function Contact() {
 
       <div className="max-w-3xl mx-auto">
         {/* Title */}
-        <motion.h2
+        <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl font-bold text-center
-          text-blue-600 dark:text-[#AED4FF]"
+          className="text-center mb-12"
         >
-          Let’s work together
-        </motion.h2>
+          <h2
+            className="
+              text-4xl md:text-5xl font-bold leading-tight
+              md:leading-[1.15]
+              pb-1
+              bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]
+              bg-clip-text text-transparent
+            "
+          >
+            Let’s Work Together
+          </h2>
 
-        <motion.p
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-         className="text-center text-gray-500 dark:text-gray-400 mt-2">
-          Have a question or a project in mind? Feel free to reach out.
-        </motion.p>
+          <p className="mt-4 max-w-xl mx-auto text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+            Have a project in mind? I’d love to hear about it.
+          </p>
+        </motion.div>
 
         {/* Form */}
         <motion.form

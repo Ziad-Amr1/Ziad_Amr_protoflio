@@ -13,15 +13,26 @@ const inactiveTab =
    dark:hover:bg-[#162c4d] dark:hover:text-[#E6F1FF] \
    hover:shadow-md hover:-translate-y-[1px]";
 
-const activeTabStyle =
-  "bg-blue-200 text-blue-800 shadow-lg scale-[1.03] \
-   dark:bg-[#1b355a] dark:text-[#E6F1FF]";
+// const activeTabStyle = `
+//   bg-gradient-to-r ${accent}
+//   text-white
+//   shadow-lg
+//   scale-[1.05]
+// `;
 
-export default function ProjectFilters({ categories, activeFilter, setActiveFilter, setCurrentPage }) {
+export default function ProjectFilters({
+  categories,
+  activeFilter,
+  setActiveFilter,
+  setCurrentPage,
+  accentMap,
+}) {
   return (
     <div className="flex justify-center gap-3 mb-8 flex-wrap">
       {categories.map((cat) => {
-        const active = activeFilter === cat;
+        const isActive = activeFilter === cat;
+        const accent = accentMap?.[cat] || "from-[#4F7FD9] to-[#9ECFFF]";
+        
         return (
           <button
             key={cat}
@@ -31,9 +42,9 @@ export default function ProjectFilters({ categories, activeFilter, setActiveFilt
             }}
             className={`
               ${baseTab}
-              ${activeFilter === cat ? activeTabStyle : inactiveTab}
+              ${isActive ? `bg-gradient-to-r ${accent} text-white shadow-lg scale-[1.05]` : inactiveTab}
             `}
-            aria-pressed={active}
+            aria-pressed={isActive}
             aria-label={`filter by ${cat}`}
           >
             {cat}

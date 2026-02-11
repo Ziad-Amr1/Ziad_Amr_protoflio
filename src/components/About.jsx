@@ -78,20 +78,31 @@ export default function About() {
   return (
     <section id="about" className="py-20">
       <div className="container mx-auto px-[5%]">
+        
         {/* Section Title */}
-        <motion.h2
+        <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="
-            text-3xl font-bold text-center mb-12
-            bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]
-            bg-clip-text text-transparent
-          "
+          className="text-center mb-14"
         >
-          About Me
-        </motion.h2>
+          <h2
+            className="
+              text-4xl md:text-5xl font-bold leading-tight
+              md:leading-[1.15] pb-1
+              bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]
+              bg-clip-text text-transparent
+            "
+          >
+            About Me
+          </h2>
+
+          <p className="mt-4 max-w-2xl mx-auto text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+            A brief look into my background, education, and professional journey.
+          </p>
+        </motion.div>
+
 
         {/* Cards Grid */}
         <motion.div
